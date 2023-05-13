@@ -8,15 +8,11 @@
 // Just a little forward declaration of a local function
 void sendCupsLevels (DeskJet3600&);
 
-#undef TESTING
-
 int main (int argc, char* argv[])
 {
     int retVal = 0;
 
     signal (SIGPIPE, SIG_IGN);
-
-#ifndef TESTING
 
     if (argc != 6 && argc != 7)
     {
@@ -88,31 +84,7 @@ int main (int argc, char* argv[])
     if (destroyFileLater)
         delete jobFile;
 
-#else
-
-    // The following test determines our ability to get the part of the device
-    //  ID we want
-    char testStatus[] = "Test;S:0380008000020020002c1481017c2501057;more stuff";
-    // The following test does not pass; does it really need to?
-    //char testStatus[] = "S:0380008000020020002c1481017c2501057";
-    // The following test checks pen validity (a cartridge was removed)
-    //char testStatus[] = "MFG:HP;MDL:Deskjet F4100 series;CMD:LDL,MLC,PML,DYN;"
-    //                    "CLS:PRINTER;1284.4DL:4d,4e,1;SN:CN7AV4S3ZZ04TJ;"
-    //                    "S:0380008000020020002c1480006c0000000;Z:007,0A20000;";
-
-    DeskJet3600 printer;
-    if (!printer.updateStatus (testStatus))
-    {
-        std::cerr << "ERROR: Could not set the status" << std::endl;
-        return 1;
-    }
-    else
-        sendCupsLevels (printer);
-
-#endif
-
     return retVal;
-
 }
 
 void
