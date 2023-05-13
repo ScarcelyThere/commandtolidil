@@ -20,10 +20,11 @@ cable range of one's printer?
 
 Building it
 -----------
-`meson setup build ; meson compile -C build`
+`$ meson setup build`
+`$ meson compile -C build`
 
 Should you be using my custom HPLIP Meson build, dj3600command will
-find the `hpmud` library and use that to operate the printer if the
+find the `hpmud` library and use that to query the printer if the
 printer is set to use the HP backend. Using your distribution's HPLIP?
 Set the Meson build option `hpbackend` to `enabled` and we will try
 linking with `hpmud` anyway. **Note that the build will fail** if
@@ -49,4 +50,5 @@ Untested Printers
 
 To Do
 -----
+- Actual test cases
 - Somehow integrate this with hplip-printer-app, as that's the future
