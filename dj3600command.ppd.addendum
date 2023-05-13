@@ -1,0 +1,3 @@
+*% Additional support for dj3600command
+*cupsCommands: "Clean PrintSelfTestPage ReportLevels"
+*cupsFilter: "application/vnd.cups-command 0 dj3600command"

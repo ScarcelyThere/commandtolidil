@@ -1,0 +1,9 @@
+option( 'hpbackend',
+        type: 'feature',
+        value: 'disabled',
+        description: 'Build support for HP\'s CUPS backend' )
+
+option( 'hplipconfigfile',
+        type: 'string',
+        value: '/etc/hp/hplip.conf',
+        description: 'Path to HPLIP\'s configuration file' )
