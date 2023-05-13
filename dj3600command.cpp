@@ -39,7 +39,7 @@ int main (int argc, char* argv[])
     if (argc == 7)
     {
         jobFile = new std::fstream (argv[6], std::ios_base::in);
-        if (!jobFile->fail ())
+        if (jobFile->fail ())
         {
             // The file couldn't be opened, for whatever reason, so we
             //  bail out.
