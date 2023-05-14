@@ -20,8 +20,12 @@ cable range of one's printer?
 
 Building it
 -----------
-`$ meson setup build`
-`$ meson compile -C build`
+`$ meson setup build`  
+`$ meson compile -C build`  
+Become root, then  
+`$ meson install -C build`  
+
+You may want to restart CUPS. Re-add your DeskJet F4180 and select the supplied PPD.
 
 Should you be using my custom HPLIP Meson build, dj3600command will
 find the `hpmud` library and use that to query the printer if the
@@ -60,8 +64,13 @@ gets when installing new ink cartridges and turning the printer on.
 
 Examples
 --------
+My DeskJet F4180 is named "imagescrawler" in CUPS. Note it's using the CUPS-supplied USB backend. We do not need any of HP's software except the `hpcups` filter to check ink levels, but we support HP's backend as well.
 ![An example Properties dialog](doc/properties.png)
+
+Should a cartridge be absent, we only report on the installed cartridge.
 ![An example where only one cartridge is installed](doc/only_one_cartridge.png)
+
+Here's a more usual result (right down to a nearly-empty Black cartridge.)
 ![An example where both cartridges are installed](doc/both_cartridges.png)
 
 To Do
