@@ -1,7 +1,7 @@
 dj3600command
 =============
 
-What is it?
+What Is It?
 -----------
 Do you compile HPLIP with `--enable-hpcups-only` and miss knowing how
 much ink you have left? Would you like to be able to print the
@@ -18,7 +18,7 @@ your printer should be considered a serious alternative to using this
 software. Besides, who likes relocating one's laptop to within USB
 cable range of one's printer?
 
-Building it
+Building It
 -----------
 `$ meson setup build`  
 `$ meson compile -C build`  
@@ -76,4 +76,8 @@ Here's a more usual result (right down to a nearly-empty Black cartridge.)
 To Do
 -----
 - Actual test cases
+- Commit to the C++ string library. We use it much of the time, except in parts of
+the Pen class.
+- It could be fun if we could determine whether or not the cartridge
+was genuine.
 - Somehow integrate this with hplip-printer-app, as that's the future
