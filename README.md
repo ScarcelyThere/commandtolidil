@@ -58,6 +58,12 @@ gets when installing new ink cartridges and turning the printer on.
 
 `Clean all` performs a level one cleaning.
 
+Examples
+--------
+![An example Properties dialog](doc/properties.png)
+![An example where only one cartridge is installed](doc/only_one_cartridge.png)
+![An example where both cartridges are installed](doc/both_cartridges.png)
+
 To Do
 -----
 - Actual test cases
