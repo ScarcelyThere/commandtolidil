@@ -47,6 +47,17 @@ Untested Printers
 -----------------
 - Every other printer ever
 
+Using It
+--------
+This command filter implements the commands `Clean all`, `PrintSelfTestPage`,
+and `ReportLevels`, most of which you can issue from the Web-based interface
+or a tool like `system-config-printer`.
+
+`PrintSelfTestPage` prints the self-alignment scanning sheet one usually
+gets when installing new ink cartridges and turning the printer on.
+
+`Clean all` performs a level one cleaning.
+
 To Do
 -----
 - Actual test cases
