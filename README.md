@@ -42,7 +42,7 @@ PPD.
 
 Known Supported Printers
 ------------------------
-- Hewlett-Packard DeskJet F4190
+- Hewlett-Packard DeskJet F4180 All-in-One
 
 Untested Printers
 -----------------
