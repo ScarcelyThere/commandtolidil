@@ -37,8 +37,7 @@ don't need to set anything for this to happen. Just select the USB backend
 when setting up the printer.
 
 Be sure to use the supplied PPD file when setting up the printer. If
-you've customized one, feel free to append the supplied addendum to your
-PPD.
+you've customized one, feel free to apply the supplied patch.
 
 Known Supported Printers
 ------------------------

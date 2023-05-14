@@ -1,0 +1,12 @@
+--- hp-deskjet_f4100_series.ppd	2023-05-13 23:47:58.336982467 -0500
++++ hp-deskjet_f4100_series.ppd.new	2023-05-14 01:40:35.340987877 -0500
+@@ -41,6 +41,9 @@
+ *cupsModelNumber: 0
+ *cupsManualCopies: True
+ *cupsFilter: "application/vnd.cups-raster 0 hpcups"
++*% Additional support for dj3600command
++*cupsCommands: "Clean PrintSelfTestPage ReportLevels"
++*cupsFilter: "application/vnd.cups-command 0 dj3600command"
+ *cupsLanguages: "en"
+ *UIConstraints: *MediaType Glossy *OutputMode DraftRGB
+ *UIConstraints: *OutputMode DraftRGB *MediaType Glossy
