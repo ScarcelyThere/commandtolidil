@@ -1,5 +1,6 @@
-/* 
- *  Copyright (C) 2023 Scarcely There.
+/* USBBackend.cpp: Implements USBBackend, which communicates with CUPS's USB
+ *  backend to read a printer's status
+ * Copyright (C) 2023 Scarcely There.
  *
  * dj3600command is free software; you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software

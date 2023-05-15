@@ -1,4 +1,4 @@
-/* 
+/* HpmudBackend.h: Declarations for the HpmudBackend class
  *  Copyright (C) 2023 Scarcely There.
  *
  * dj3600command is free software; you can redistribute it and/or modify it under the

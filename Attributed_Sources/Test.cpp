@@ -1,4 +1,4 @@
-/* 
+/* Test.cpp: Tests DeskJet3600 and Pen parsing ability
  *  Copyright (C) 2023 Scarcely There.
  *
  * dj3600command is free software; you can redistribute it and/or modify it under the

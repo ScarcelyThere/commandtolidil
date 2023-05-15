@@ -1,5 +1,5 @@
-/* 
- *  Copyright (C) 2023 Scarcely There.
+/* Backend.h: A base for Backend objects, which communicate with the printer
+ * Copyright (C) 2023 Scarcely There.
  *
  * dj3600command is free software; you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software

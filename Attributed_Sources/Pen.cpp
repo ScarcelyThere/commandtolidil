@@ -1,5 +1,6 @@
-/* 
- *  Copyright (C) 2023 Scarcely There.
+/* Pen.cpp: Implements the Pen class, which parses part of a printer's status and
+ *  represents a cartridge, ink tank, or print head
+ * Copyright (C) 2023 Scarcely There.
  *
  * dj3600command is free software; you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
