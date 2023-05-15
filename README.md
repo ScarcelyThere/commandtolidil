@@ -25,7 +25,8 @@ Building It
 Become root, then  
 `$ meson install -C build`  
 
-You may want to restart CUPS. Re-add your DeskJet F4180 and select the supplied PPD.
+You may want to restart CUPS. Re-add your DeskJet F4180 and select the
+supplied PPD.
 
 Should you be using my custom HPLIP Meson build, dj3600command will
 find the `hpmud` library and use that to query the printer if the
@@ -64,7 +65,9 @@ gets when installing new ink cartridges and turning the printer on.
 
 Examples
 --------
-My DeskJet F4180 is named "imagescrawler" in CUPS. Note it's using the CUPS-supplied USB backend. We do not need any of HP's software except the `hpcups` filter to check ink levels, but we support HP's backend as well.
+My DeskJet F4180 is named "imagescrawler" in CUPS. Note it's using the
+CUPS-supplied USB backend. We do not need any of HP's software except the
+`hpcups` filter to check ink levels, but we support HP's backend as well.
 ![An example Properties dialog](doc/properties.png)
 
 Should a cartridge be absent, we only report on the installed cartridge.
