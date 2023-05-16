@@ -1,3 +1,15 @@
+# Meson build for dj3600command
+# This is free software; you can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation,
+# either version 3 of the License, or (at your option) any other version.
+#
+# This is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# dj3600command. If not, see <https://www.gnu.org/licenses/>.
+
 project( 'dj3600cmdfilter', 'cpp', version: '0.9' )
 
 # This is specifically built by my custom Meson build in HP's regular hplip source
