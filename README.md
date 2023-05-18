@@ -23,7 +23,7 @@ Building It
 `$ meson setup build`  
 `$ meson compile -C build`  
 Become root, then  
-`$ meson install -C build`  
+`# meson install -C build`  
 
 You may want to restart CUPS. Re-add your DeskJet F4180 and select the
 supplied PPD.
@@ -66,8 +66,7 @@ gets when installing new ink cartridges and turning the printer on.
 Examples
 --------
 My DeskJet F4180 is named "imagescrawler" in CUPS. Note it's using the
-CUPS-supplied USB backend. We do not need any of HP's software except the
-`hpcups` filter to check ink levels, but we support HP's backend as well.
+CUPS-supplied USB backend.
 ![An example Properties dialog](doc/properties.png)
 
 Should a cartridge be absent, we only report on the installed cartridge.
@@ -75,6 +74,13 @@ Should a cartridge be absent, we only report on the installed cartridge.
 
 Here's a more usual result (right down to a nearly-empty Black cartridge.)
 ![An example where both cartridges are installed](doc/both_cartridges.png)
+
+Acknowledgments
+---------------
+This would not have been possible without the open-source HPLIP drivers. My
+appreciation goes to HP for making that software open and available. I'd also
+like to thank the CUPS developers for excellent documentation and sample
+code.
 
 To Do
 -----
