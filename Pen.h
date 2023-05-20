@@ -45,7 +45,7 @@ class Pen
             maxType
         } Type;    // There are MANY more types, but we care not (yet)
 
-        typedef struct ColorInfo_S
+        typedef struct
         {
             char rgbDesc[22];    // long enough for 18 hex digits, 3 octothorpes,
                                  //  and NULL-termination
@@ -54,7 +54,7 @@ class Pen
             Color color;
         } ColorInfo;
 
-        typedef struct TypeInfo_S
+        typedef struct
         {
             char name[20];
             Type type;
