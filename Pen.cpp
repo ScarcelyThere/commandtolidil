@@ -40,10 +40,7 @@ Pen& Pen::operator= (Pen& source)
     return *this;
 }
 
-Pen::Pen (const unsigned int status) :
-    color {Color::None},
-    type  {Type::Invalid},
-    level {0}
+Pen::Pen (const unsigned int status) : Pen ()
 {
     // Lowest byte is the level
     level = status & 0xFF;
