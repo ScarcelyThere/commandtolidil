@@ -92,8 +92,6 @@ int main (int argc, char* argv[])
             }
         }
         // Any other line is unsupported or a comment. Ignore it.
-        //  Fun aside, other backends include cups-private.h and use
-        //  supplied functions there to parse these. Can we use them?
     }
 
     if (destroyFileLater)
