@@ -99,17 +99,17 @@ class Pen
 
         // These should remain in sync with their respective enum declarations.
         static constexpr ColorInfo ColorDescs[] = {
-            /* None  */ { "",                      "None",      Color::None  },
-            /* Black */ { "#000000",               "Black",     Color::Black },
-            /* CMY   */ { "#00FFFF#FF00FF#FFFF00", "Tri-color", Color::CMY   },
-            /* KCM   */ { "#000000#00FFFF#FF00FF", "Photo",     Color::KCM   }
+            [Color::None]  = { "",                      "None",      Color::None  },
+            [Color::Black] = { "#000000",               "Black",     Color::Black },
+            [Color::CMY]   = { "#00FFFF#FF00FF#FFFF00", "Tri-color", Color::CMY   },
+            [Color::KCM]   = { "#000000#00FFFF#FF00FF", "Photo",     Color::KCM   }
         };
 
         static constexpr TypeInfo TypeDescs[] = {
-            /* Invalid   */ { "unknown", Type::Invalid   },
-            /* Printhead */ { "ink",     Type::Printhead },
-            /* Tank      */ { "ink",     Type::Tank      },
-            /* Cartridge */ { "ink",     Type::Cartridge }
+            [Type::Invalid]   = { "unknown", Type::Invalid   },
+            [Type::Printhead] = { "ink",     Type::Printhead },
+            [Type::Tank]      = { "ink",     Type::Tank      },
+            [Type::Cartridge] = { "ink",     Type::Cartridge }
         };
 };
 
