@@ -97,7 +97,6 @@ class Pen
         Type  type;
         int   level;
 
-        // These should remain in sync with their respective enum declarations.
         static constexpr ColorInfo ColorDescs[] = {
             [Color::None]  = { "",                      "None",      Color::None  },
             [Color::Black] = { "#000000",               "Black",     Color::Black },
