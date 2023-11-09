@@ -25,11 +25,9 @@ void sendCupsLevels (DeskJet3600&);
 
 int main (int argc, char* argv[])
 {
-    int retVal = 0;
-
     signal (SIGPIPE, SIG_IGN);
 
-    if (argc != 6 && argc != 7)
+    if (argc != 7)
     {
         // No way we're being called from CUPS.
         std::cerr << "ERROR: insufficient or too many arguments" << std::endl;
@@ -43,41 +41,21 @@ int main (int argc, char* argv[])
         return 1;
     }
 
-    // Sixth argument from CUPS is the job file. Should it not be present, we
-    //  accept our commands on standard input.
-
-    bool destroyFileLater = false;
-    // This feels like a gross way to do this, but we use stream-based I/O
-    //  elsewhere, so we should be consistent and not go opening stdin on
-    //  our own.
-    std::istream* jobFile = &std::cin;
-    if (argc == 7)
-    {
-        jobFile = new std::fstream (argv[6], std::ios_base::in);
-        if (jobFile->fail ())
-        {
-            // The file couldn't be opened, for whatever reason, so we
-            //  bail out.
-            delete jobFile;
-            return 1;
-        }
-        else
-            // Open was successful, make sure we destroy it before we're
-            //  done
-            destroyFileLater = true;
-    }
+    std::istream jobFile (argv[6], std::ios_base::in);
+    if (!jobFile)
+        return 1;
 
     DeskJet3600 printer (deviceUri);
 
-    char jobLine[1024];
-    while (jobFile->getline (jobLine, 1023))
+    std::string jobLine;
+    while (jobFile >> jobLine)
     {
         std::cerr << "DEBUG: jobLine is " << jobLine << std::endl;
 
         // "Clean all" instead of "Clean" as specified threw me off a little
-        if (0 == strcmp (jobLine, "Clean all"))
+        if (jobLine == "Clean")
             printer.clean ();
-        else if (0 == strcmp (jobLine, "PrintSelfTestPage"))
+        else if ()
             printer.printAlignmentPage ();
         else if (0 == strcmp (jobLine, "ReportLevels"))
         {
@@ -86,18 +64,14 @@ int main (int argc, char* argv[])
             else
             {
                 // This is probably bad enough that we just stop.
-                retVal = 1;
                 std::cerr << "ERROR: Could not get supply levels" << std::endl;
-                break;
+                return 1;
             }
         }
         // Any other line is unsupported or a comment. Ignore it.
     }
 
-    if (destroyFileLater)
-        delete jobFile;
-
-    return retVal;
+    return 0;
 }
 
 void
