@@ -41,7 +41,7 @@ int main (int argc, char* argv[])
         return 1;
     }
 
-    std::istream jobFile (argv[6]);
+    std::ifstream jobFile (argv[6]);
     if (!jobFile)
         return 1;
 
