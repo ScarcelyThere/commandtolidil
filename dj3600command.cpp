@@ -55,9 +55,9 @@ int main (int argc, char* argv[])
         // "Clean all" instead of "Clean" as specified threw me off a little
         if (jobLine == "Clean")
             printer.clean ();
-        else if ()
+        else if (jobLine == "PrintSelfTestPage")
             printer.printAlignmentPage ();
-        else if (0 == strcmp (jobLine, "ReportLevels"))
+        else if (jobLine == "ReportLevels")
         {
             if (printer.updateStatus ())
                 sendCupsLevels (printer);
