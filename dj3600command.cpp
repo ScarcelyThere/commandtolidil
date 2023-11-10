@@ -20,8 +20,46 @@
 #include "Pen.h"
 #include "DeskJet3600.h"
 
-// Just a little forward declaration of a local function
-void sendCupsLevels (DeskJet3600&);
+void
+sendCupsLevels (DeskJet3600& printer)
+{
+    // I thought about a CUPS object, but why?
+    std::string markerTypes  = "ATTR:marker-types=";
+    std::string markerLevels = "ATTR:marker-levels=";
+    std::string markerColors = "ATTR:marker-colors=";
+    std::string markerNames  = "ATTR:marker-names=";
+    
+    Pen* curPen;
+    bool firstPass = true;
+    for (curPen = printer.firstPen () ; curPen != NULL ;
+            curPen = printer.nextPen ())
+    {
+        if (firstPass)
+        {
+            // We'll need commas after this
+            firstPass = false;
+        }
+        else
+        {
+            // commas needed
+            markerTypes  += ",";
+            markerLevels += ",";
+            markerColors += ",";
+            markerNames  += ",";
+        }
+
+        markerTypes  += curPen->markerType ();
+        markerLevels += std::to_string (curPen->getLevel ());
+        markerColors += curPen->toHex ();
+        markerNames  += curPen->name ();
+    }
+
+    std::cerr << markerTypes  << std::endl;
+    std::cerr << markerLevels << std::endl;
+    std::cerr << markerColors << std::endl;
+    std::cerr << markerNames  << std::endl;
+}
+
 
 int main (int argc, char* argv[])
 {
@@ -72,46 +110,6 @@ int main (int argc, char* argv[])
     }
 
     return 0;
-}
-
-void
-sendCupsLevels (DeskJet3600& printer)
-{
-    // I thought about a CUPS object, but why?
-    std::string markerTypes  = "ATTR:marker-types=";
-    std::string markerLevels = "ATTR:marker-levels=";
-    std::string markerColors = "ATTR:marker-colors=";
-    std::string markerNames  = "ATTR:marker-names=";
-    
-    Pen* curPen;
-    bool firstPass = true;
-    for (curPen = printer.firstPen () ; curPen != NULL ;
-            curPen = printer.nextPen ())
-    {
-        if (firstPass)
-        {
-            // We'll need commas after this
-            firstPass = false;
-        }
-        else
-        {
-            // commas needed
-            markerTypes  += ",";
-            markerLevels += ",";
-            markerColors += ",";
-            markerNames  += ",";
-        }
-
-        markerTypes  += curPen->markerType ();
-        markerLevels += std::to_string (curPen->getLevel ());
-        markerColors += curPen->toHex ();
-        markerNames  += curPen->name ();
-    }
-
-    std::cerr << markerTypes  << std::endl;
-    std::cerr << markerLevels << std::endl;
-    std::cerr << markerColors << std::endl;
-    std::cerr << markerNames  << std::endl;
 }
 
 // vim: et sw=4
