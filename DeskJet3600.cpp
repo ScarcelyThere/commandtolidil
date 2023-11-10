@@ -51,10 +51,14 @@ DeskJet3600::DeskJet3600 (std::string uri) :
                      "not built for that" << std::endl;
 #endif
     }
-    else
+    else if (deviceUrl.length () > 2 &&
+             deviceUri.compare (0, 3, "usb") == 0)
     {
         backend = new USBBackend ();
         std::cerr << "DEBUG: Selected USB backend" << std::endl;
+    }
+    else
+    {
     }
 }
  
