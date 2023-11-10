@@ -25,7 +25,7 @@ bool
 TestBackend::getDeviceID (std::string& deviceID)
 {
     std::chrono::time_point rightNow = std::chrono::system_clock::now ();
-    std::mt19937 randomGenerator (std::chrono::system_clock::to_time_t(rightNow));
+    std::ranlux24 randomGenerator (std::chrono::system_clock::to_time_t(rightNow));
     std::uniform_int_distribution randomNumber (0,2);
 
     int testCase = randomNumber (randomGenerator);

@@ -60,7 +60,6 @@ sendCupsLevels (DeskJet3600& printer)
     std::cerr << markerNames  << std::endl;
 }
 
-
 int main (int argc, char* argv[])
 {
     signal (SIGPIPE, SIG_IGN);
