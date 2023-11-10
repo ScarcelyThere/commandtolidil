@@ -18,6 +18,7 @@
 #include <cstring>
 #include "DeskJet3600.h"
 #include "USBBackend.h"
+#include "TestBackend.h"
 
 #ifdef BUILD_HPMUD
 #  include "HpmudBackend.h"
@@ -59,6 +60,9 @@ DeskJet3600::DeskJet3600 (std::string uri) :
     }
     else
     {
+        // For now, fake a backend for testing purposes?
+        backend = new TestBackend ();
+        std::cerr << "DEBUG: Using test backend" << std::endl;
     }
 }
  

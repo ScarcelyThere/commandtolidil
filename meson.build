@@ -24,7 +24,8 @@ hpmudsource = 'HpmudBackend.cpp'
 hpmuddefine = 'BUILD_HPMUD'
 
 sources = [ 'Pen.cpp', 'DeskJet3600.cpp',
-            'dj3600command.cpp', 'USBBackend.cpp' ]
+            'dj3600command.cpp', 'USBBackend.cpp',
+            'TestBackend.cpp' ]
 
 args     = [ ]
 linkargs = [ ]
@@ -56,6 +57,6 @@ dj3600cmdfilter = executable( 'dj3600command', sources,
                               dependencies: deps )
 
 pentest = executable( 'pentest', [ 'USBBackend.cpp', 'Test.cpp', 'Pen.cpp',
-                                   'DeskJet3600.cpp' ],
+                                   'DeskJet3600.cpp', 'TestBackend.cpp' ],
                       install: false,
                       dependencies: cups )
