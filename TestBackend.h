@@ -17,8 +17,9 @@
 #define _TESTBACKEND_H
 
 #include <string>
+#include "Backend.h"
 
-class TestBackend
+class TestBackend : public Backend
 {
     public:
         TestBackend ();
