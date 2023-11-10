@@ -14,18 +14,9 @@
  */
 
 #include <iostream>
+#include <chrono>
+#include <random>
 #include "TestBackend.h"
-
-static const int numTests = 3;
-static const char testStatus[numTests][256] = {
-    // A simple test, from an actual printer, without much around it
-    "Test;S:0380008000020020002c1481017c2501057;more stuff",
-    // A more complex test, taken from a printer that had a cartridge removed (only
-    //  the Black cartridge was installed)
-    "MFG:HP;MDL:Deskjet F4100 series;CMD:LDL,MLC,PML,DYN;CLS:PRINTER;1284.4DL:4d,4e,1;SN:CN7AV4S3ZZ04TJ;S:0380008000020020002c1480006c0000000;Z:007,0A20000;",
-    // I've randomly changed digits in the following case to be sure we will not crash.
-    "Test;S:038123812342000A34bc1481017c2501057;more stuff"
-};
 
 TestBackend::TestBackend () = default;
 TestBackend::~TestBackend () = default;
@@ -33,7 +24,15 @@ TestBackend::~TestBackend () = default;
 bool
 TestBackend::getDeviceID (std::string& deviceID)
 {
-    deviceID = testStatus[0];
+    std::chrono::time_point rightNow = std::chrono::system_clock::now ();
+    std::mt19937 randomGenerator (std::chrono::system_clock::to_time_t(rightNow));
+    std::uniform_int_distribution randomNumber (0,2);
+
+    int testCase = randomNumber (randomGenerator);
+
+    deviceID = testCases[testCase];
+    std::cerr << "ERROR: " << testDescriptions[testCase] <<  std::endl;
+
     return true;
 }
 
