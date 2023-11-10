@@ -26,7 +26,7 @@ class TestBackend : public Backend
         ~TestBackend ();
 
         bool getDeviceID (std::string&);
-}
+};
 
 #endif
 
