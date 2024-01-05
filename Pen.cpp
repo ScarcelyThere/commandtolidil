@@ -67,8 +67,8 @@ Pen::Pen (const unsigned int status) : Pen ()
 std::string
 Pen::markerType ()
 {
-    if (type == Type::Invalid)
-        return "invalid";
+    if (type == Type::Unknown)
+        return "unknown";
     else
         return TypeDescs[type].name;
 }

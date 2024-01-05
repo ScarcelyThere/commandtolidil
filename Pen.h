@@ -105,7 +105,7 @@ class Pen
         };
 
         static constexpr TypeInfo TypeDescs[] = {
-            [Type::Invalid]   = { "unknown", Type::Invalid   },
+            [Type::Invalid]   = { "invalid", Type::Invalid   },
             [Type::Printhead] = { "ink",     Type::Printhead },
             [Type::Tank]      = { "ink",     Type::Tank      },
             [Type::Cartridge] = { "ink",     Type::Cartridge }
