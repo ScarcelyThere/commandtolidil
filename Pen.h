@@ -98,17 +98,25 @@ class Pen
         int   level;
 
         static constexpr ColorInfo ColorDescs[] = {
-            [Color::None]  = { "",                      "None",      Color::None  },
-            [Color::Black] = { "#000000",               "Black",     Color::Black },
-            [Color::CMY]   = { "#00FFFF#FF00FF#FFFF00", "Tri-color", Color::CMY   },
-            [Color::KCM]   = { "#000000#00FFFF#FF00FF", "Photo",     Color::KCM   }
+            // Color::None
+            { "",                      "None",      Color::None  },
+            // Color::Black
+            { "#000000",               "Black",     Color::Black },
+            // Color::CMY
+            { "#00FFFF#FF00FF#FFFF00", "Tri-color", Color::CMY   },
+            // Color::KCM
+            { "#000000#00FFFF#FF00FF", "Photo",     Color::KCM   }
         };
 
         static constexpr TypeInfo TypeDescs[] = {
-            [Type::Invalid]   = { "invalid", Type::Invalid   },
-            [Type::Printhead] = { "ink",     Type::Printhead },
-            [Type::Tank]      = { "ink",     Type::Tank      },
-            [Type::Cartridge] = { "ink",     Type::Cartridge }
+            // Type::Invalid
+            { "invalid", Type::Invalid   },
+            // Type::Printhead
+            { "ink",     Type::Printhead },
+            // Type::Tank
+            { "ink",     Type::Tank      },
+            // Type::Cartridge
+            { "ink",     Type::Cartridge }
         };
 };
 
