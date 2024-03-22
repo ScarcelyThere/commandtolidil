@@ -56,7 +56,7 @@ dj3600cmdfilter = executable( 'dj3600command', sources,
                               install_dir: filter_install_dir,
                               dependencies: deps )
 
-pentest = executable( 'pentest', [ 'USBBackend.cpp', 'Test.cpp', 'Pen.cpp',
-                                   'DeskJet3600.cpp', 'TestBackend.cpp' ],
+pentest = executable( 'dj3600test', [ 'USBBackend.cpp', 'Test.cpp', 'Pen.cpp',
+                                      'DeskJet3600.cpp', 'TestBackend.cpp' ],
                       install: false,
                       dependencies: cups )

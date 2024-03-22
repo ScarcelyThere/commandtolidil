@@ -29,8 +29,9 @@ main (void)
     for (Pen *p = testPrinter.firstPen (); p != NULL ;
               p = testPrinter.nextPen ())
     {
-        std::cout << "Pen " << p->name () << " has level "
-                  << p->getLevel () << std::endl;
+        std::cout << "DEBUG: Pen " << p->name () << " has level "
+                  << p->getLevel () << " and RGB " << p->toHex ()
+                  << std::endl;
     }
 
     return 0;

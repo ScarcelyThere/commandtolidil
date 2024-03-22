@@ -108,6 +108,17 @@ DeskJet3600::nextPen ()
     return NULL;
 }
 
+void
+DeskJet3600::clearPens ()
+{
+    for (int i = 0 ; i < numPens ; i++ )
+        if (pens[i])
+            delete pens[i];
+
+    curPen  = 0;
+    numPens = 0;
+}
+
 int
 DeskJet3600::updateStatus ()
 {
@@ -123,6 +134,9 @@ DeskJet3600::updateStatus ()
     }
     else
         validStatus = false;
+
+    // Clear the pen array, just in case this was called twice.
+    clearPens ();
 
     return parseStatus ();
 }

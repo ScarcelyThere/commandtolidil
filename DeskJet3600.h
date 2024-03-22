@@ -43,6 +43,7 @@ class DeskJet3600
 
     private:
         int parseStatus ();
+        void clearPens ();
 
         // Was this initialized?
         bool validStatus;

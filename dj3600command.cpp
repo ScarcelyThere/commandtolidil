@@ -64,7 +64,7 @@ int main (int argc, char* argv[])
 {
     signal (SIGPIPE, SIG_IGN);
 
-    if (argc != 7)
+    if (argc > 7 || argc < 6)
     {
         // No way we're being called from CUPS.
         std::cerr << "ERROR: insufficient or too many arguments" << std::endl;
@@ -78,14 +78,27 @@ int main (int argc, char* argv[])
         return 1;
     }
 
-    std::ifstream jobFile (argv[6]);
-    if (!jobFile)
-        return 1;
+    // Should there be no file argument, we read from standard input. I'm
+    //  assuming any issues with the supplied filename doesn't imply defer
+    //  to standard input, but complain.
+    std::istream* jobFile = &std::cin;
+    bool shouldCloseInput = false;
+    if (argc == 7)
+    {
+        jobFile = new std::ifstream (argv[6]);
+        if (!(*jobFile))
+        {
+            delete jobFile;
+            return 1;
+        }
+        else
+            shouldCloseInput = true;
+    }
 
     DeskJet3600 printer (deviceUri);
 
     std::string jobLine;
-    while (jobFile >> jobLine)
+    while (*jobFile >> jobLine)
     {
         std::cerr << "DEBUG: jobLine is " << jobLine << std::endl;
 
@@ -102,11 +115,16 @@ int main (int argc, char* argv[])
             {
                 // This is probably bad enough that we just stop.
                 std::cerr << "ERROR: Could not get supply levels" << std::endl;
+                if (shouldCloseInput)
+                    delete jobFile;
                 return 1;
             }
         }
         // Any other line is unsupported or a comment. Ignore it.
     }
+
+    if (shouldCloseInput)
+        delete jobFile;
 
     return 0;
 }
