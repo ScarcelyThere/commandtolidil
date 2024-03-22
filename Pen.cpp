@@ -19,13 +19,21 @@
 Pen::Pen () :
     color {Color::None},
     type  {Type::Invalid},
-    level {0}
+    level {0},
+
+    myName       {""},
+    myMarkerType {""},
+    myHex        {""}
 { }
 
 Pen::Pen (Pen& source) :
     color {source.getColor () },
     type  {source.getType ()  },
-    level {source.getLevel () }
+    level {source.getLevel () },
+
+    myName       {source.name () },
+    myMarkerType {source.markerType () },
+    myHex        {source.toHex () }
 { }
 
 Pen& Pen::operator= (Pen& source)
@@ -36,6 +44,10 @@ Pen& Pen::operator= (Pen& source)
     color = source.getColor ();
     type  = source.getType ();
     level = source.getLevel ();
+
+    myName       = source.name ();
+    myHex        = source.toHex ();
+    myMarkerType = source.markerType ();
 
     return *this;
 }
