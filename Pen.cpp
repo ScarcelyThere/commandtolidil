@@ -21,7 +21,7 @@ Pen::Pen () :
     type  {Type::Invalid},
     level {0},
 
-    myName       {""},
+    myName       {"Error"},
     myMarkerType {""},
     myHex        {""}
 { }
@@ -95,7 +95,9 @@ Pen::Pen (const unsigned int status) : Pen ()
             myName = "Photo";
             myHex  = "#000000#00FFFF#FF00FF";
         default:
-            color = Color::Error;
+            myName = "Error";
+            myHex  = "";
+            color  = Color::Error;
     }
 }
 
