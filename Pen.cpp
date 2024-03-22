@@ -47,48 +47,62 @@ Pen::Pen (const unsigned int status) : Pen ()
 
     // The type ("kind" in HP parlance) is the top two bits
     unsigned int kind = (status & 0xC0000000) >> 30;
-    if (kind >= Type::lastValidType)
+    type = static_cast<Type>(kind);     // We verify this next
+    switch (kind)
     {
-        type = Type::Unknown;
+        case Type::Invalid:
+            myMarkerType = "Invalid";
+            break;
+        case Type::Printhead:
+        case Type::Tank:
+        case Type::Cartridge:
+            myMarkerType = "ink";
+            break;
+        default:
+            type = Type::Unknown;
     }
-    else
-        type = TypeDescs[kind].type;
 
     // The color ("type" in HP parlance) is the next six bits
     unsigned int hpType = (status & 0x3F000000) >> 24;
-    if (hpType >= Color::lastValidColor)
+    color = static_cast<Color>(hpType); // Verifying this next
+    switch (hpType)
     {
-        color = Color::Error;
+        case Color::None:
+            myName = "None";
+            myHex  = "";
+            break;
+        case Color::Black:
+            myName = "Black";
+            myHex  = "#000000";
+            break;
+        case Color::CMY:
+            myName = "Tri-color";
+            myHex  = "#00FFFF#FF00FF#FFFF00";
+            break;
+        case Color::KCM:
+            myName = "Photo";
+            myHex  = "#000000#00FFFF#FF00FF";
+        default:
+            color = Color::Error;
     }
-    else
-        color = ColorDescs[hpType].color;
 }
 
 std::string
 Pen::markerType ()
 {
-    if (type == Type::Unknown)
-        return "unknown";
-    else
-        return TypeDescs[type].name;
+    return myMarkerType;
 }
 
 std::string
 Pen::toHex ()
 {
-    if (color == Color::Error)
-        return "error";
-    else
-        return ColorDescs[color].rgbDesc;
+    return myHex;
 }
 
 std::string
 Pen::name ()
 {
-    if (color == Color::Error)
-        return "error";
-    else
-        return ColorDescs[color].enDesc;
+    return myName;
 }
 
 Pen::Pen (const unsigned short status) : Pen ()
