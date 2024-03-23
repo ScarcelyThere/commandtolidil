@@ -88,6 +88,7 @@ int main (int argc, char* argv[])
         jobFile = new std::ifstream (argv[6]);
         if (!(*jobFile))
         {
+            std::cerr << "DEBUG: Could not open file containing commands" << std::endl;
             delete jobFile;
             return 1;
         }

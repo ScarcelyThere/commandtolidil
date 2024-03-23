@@ -17,8 +17,8 @@
 #include "Pen.h"
 
 Pen::Pen () :
-    color {Color::None},
-    type  {Type::Invalid},
+    color {Color::Error},
+    type  {Type::Unknown},
     level {0},
 
     myName       {"Error"},
