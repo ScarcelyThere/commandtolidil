@@ -33,7 +33,6 @@ class DeskJet3600
         void clean ();
 
         int update ();
-        bool isValidStatus ();
 
         Pen* firstPen ();
         Pen* nextPen  ();
