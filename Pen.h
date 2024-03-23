@@ -45,15 +45,6 @@ class Pen
             maxType
         } Type;    // There are MANY more types, but we care not (yet)
 
-        typedef struct
-        {
-            char rgbDesc[22];    // long enough for 18 hex digits, 3 octothorpes,
-                                 //  and NULL-termination
-            char enDesc[20];     // Should be long enough for any English
-                                 //  description
-            Color color;
-        } ColorInfo;
-
         // Create an uninitialized Pen
         Pen ();
 
