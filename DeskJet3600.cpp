@@ -78,20 +78,6 @@ DeskJet3600::~DeskJet3600 ()
     }
 }
 
-// TODO: this is gross and only for testing
-int
-DeskJet3600::updateStatus (char* s)
-{
-    if (strlen (s) > 1023)
-        return 0;
-
-    strcpy (status, s);
-    status[1023] = '\0';    // make sure it's NULL-terminated
-    validStatus = true;
-
-    return parseStatus ();
-}
-
 Pen*
 DeskJet3600::firstPen ()
 {
@@ -120,7 +106,7 @@ DeskJet3600::clearPens ()
 }
 
 int
-DeskJet3600::updateStatus ()
+DeskJet3600::update ()
 {
     std::string deviceID;
 

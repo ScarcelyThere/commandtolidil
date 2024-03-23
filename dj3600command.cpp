@@ -110,7 +110,7 @@ int main (int argc, char* argv[])
             printer.printAlignmentPage ();
         else if (jobLine == "ReportLevels")
         {
-            if (printer.updateStatus ())
+            if (printer.update ())
                 sendCupsLevels (printer);
             else
             {

@@ -32,14 +32,11 @@ class DeskJet3600
         void printAlignmentPage ();
         void clean ();
 
-        int updateStatus ();
+        int update ();
         bool isValidStatus ();
 
         Pen* firstPen ();
         Pen* nextPen  ();
-
-        // TODO: get rid of this. It's for testing
-        int updateStatus (char* s);
 
     private:
         int parseStatus ();

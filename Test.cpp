@@ -24,7 +24,7 @@ main (void)
     // An empty string instantiates a testing backend.
     DeskJet3600 testPrinter ("");
 
-    testPrinter.updateStatus ();
+    testPrinter.update ();
 
     for (Pen *p = testPrinter.firstPen (); p != NULL ;
               p = testPrinter.nextPen ())
