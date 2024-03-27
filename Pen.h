@@ -29,9 +29,7 @@ class Pen
             Black,
             CMY,
             KCM,               // Often called a Photo cartridge
-            lastValidColor,    // Bounds-checking for the number we receive
-            Error = 0x3f,
-            maxColor
+            Error = 0x3f
         } Color;
 
         typedef enum : unsigned int
@@ -40,9 +38,7 @@ class Pen
             Printhead,
             Tank,
             Cartridge,
-            lastValidType,     // Bounds-checking for the number we receive
-            Unknown = 0x3e,
-            maxType
+            Unknown = 0x3e
         } Type;    // There are MANY more types, but we care not (yet)
 
         // Create an uninitialized Pen
