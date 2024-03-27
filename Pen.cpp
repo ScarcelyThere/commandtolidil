@@ -72,6 +72,7 @@ Pen::Pen (const unsigned int status) : Pen ()
             break;
         default:
             type = Type::Unknown;
+            break;
     }
 
     // The color ("type" in HP parlance) is the next six bits
@@ -94,10 +95,12 @@ Pen::Pen (const unsigned int status) : Pen ()
         case Color::KCM:
             myName = "Photo";
             myHex  = "#000000#00FFFF#FF00FF";
+            break;
         default:
             myName = "Error";
             myHex  = "";
             color  = Color::Error;
+            break;
     }
 }
 
