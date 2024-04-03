@@ -17,7 +17,7 @@
 #define _USBBACKEND_H
 
 #include <string>
-#include "Backend.h"
+#include "Backend.hpp"
 
 class USBBackend : public Backend
 {

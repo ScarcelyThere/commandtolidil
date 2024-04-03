@@ -14,8 +14,8 @@
  */
 
 // A simple test harness for the Pen class.
-#include "Pen.h"
-#include "DeskJet3600.h"
+#include "Pen.hpp"
+#include "DeskJet3600.hpp"
 #include <iostream>
 
 int

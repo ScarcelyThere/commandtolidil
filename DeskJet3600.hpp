@@ -17,8 +17,8 @@
 #define _DESKJET3600_H
 
 #include <string>
-#include "Pen.h"
-#include "Backend.h"
+#include "Pen.hpp"
+#include "Backend.hpp"
 
 class DeskJet3600
 {

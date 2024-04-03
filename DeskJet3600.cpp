@@ -16,9 +16,9 @@
 
 #include <iostream>
 #include <cstring>
-#include "DeskJet3600.h"
-#include "USBBackend.h"
-#include "TestBackend.h"
+#include "DeskJet3600.hpp"
+#include "USBBackend.hpp"
+#include "TestBackend.hpp"
 
 #ifdef BUILD_HPMUD
 #  include "HpmudBackend.h"

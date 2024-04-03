@@ -16,7 +16,7 @@
 
 #include <cups/cups.h>
 #include <cups/sidechannel.h>
-#include "USBBackend.h"
+#include "USBBackend.hpp"
 
 USBBackend::USBBackend () = default;
 

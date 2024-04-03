@@ -18,7 +18,7 @@
 
 #include <string>
 #include "hpmud.h"
-#include "Backend.h"
+#include "Backend.hpp"
 
 class HpmudBackend : public Backend
 {

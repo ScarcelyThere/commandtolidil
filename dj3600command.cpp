@@ -17,8 +17,8 @@
 #include <fstream>
 #include <cstring>
 #include <signal.h>
-#include "Pen.h"
-#include "DeskJet3600.h"
+#include "Pen.hpp"
+#include "DeskJet3600.hpp"
 
 void
 sendCupsLevels (DeskJet3600& printer)

@@ -17,7 +17,7 @@
 #include <iostream>
 #include <string>
 #include "hpmud.h"
-#include "HpmudBackend.h"
+#include "HpmudBackend.hpp"
 
 HpmudBackend::HpmudBackend (const char* deviceUri) :
     deviceOpen {false}

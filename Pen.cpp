@@ -14,7 +14,7 @@
  * dj3600command. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "Pen.h"
+#include "Pen.hpp"
 
 Pen::Pen () :
     level {0},

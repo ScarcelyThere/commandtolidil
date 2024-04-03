@@ -16,7 +16,7 @@
 #include <iostream>
 #include <chrono>
 #include <random>
-#include "TestBackend.h"
+#include "TestBackend.hpp"
 
 TestBackend::TestBackend () = default;
 TestBackend::~TestBackend () = default;
