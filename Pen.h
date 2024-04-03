@@ -56,11 +56,7 @@ class Pen
         Pen (const unsigned int status);
 
         // Accessors
-        Color getColor ();
-        Type  getType  ();
         int   getLevel ();
-
-        bool  exists   ();
 
         // Returns a hexadecimal color code for the Pen
         // TODO: This is pretty CUPS-y. Does this properly belong here?
@@ -74,14 +70,15 @@ class Pen
         std::string markerType ();
 
     private:
-        Color color;
-        Type  type;
         int   level;
 
         std::string myName;
         std::string myMarkerType;
         std::string myHex;
 };
+
+class InvalidPenException
+{ };
 
 #endif
 

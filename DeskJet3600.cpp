@@ -172,22 +172,15 @@ DeskJet3600::parseStatus ()
     {
         sscanf (statusChunk, penDataFormat, &curRawPen);
 
-        pen = new Pen (curRawPen);
-        if (pen->exists ())
+        try
         {
-            std::cerr << "DEBUG: Found existent Pen with type "
-                      << pen->getType () << std::endl;
-            // The pen may not exist. Don't add it unless it does.
-            // A note:
-            //  Whether or not there's a cartridge installed in the printer itself, the
-            //  status string will always say there are two pens, each of the Cartridge
-            //  type. The Pen itself knows if it exists (at least that's where I
-            //  determine this.) So far, any marking (ink, toner, etc.) Pen that has
-            //  no valid Color is likely not installed.
+            pen = new Pen (curRawPen);
             pens[numPens++] = pen;
         }
-        else
-            delete pen;
+        catch (const InvalidPenException &e)
+        {
+            std::cout << "DEBUG: Invalid Pen discovered" << std::endl;
+        }
 
         statusChunk += penDataLength;
     }
