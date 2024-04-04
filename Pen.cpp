@@ -109,7 +109,7 @@ Pen::Pen (const unsigned short status) : Pen ()
 {
     // TODO: Implement this so we can support more printers
     (void)status;
-};
+}
 
 int
 Pen::getLevel ()
