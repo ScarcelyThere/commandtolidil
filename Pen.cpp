@@ -14,6 +14,8 @@
  * dj3600command. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// iostream is only needed for debugging statements here.
+#include <iostream>
 #include "Pen.hpp"
 
 Pen::Pen () :
@@ -48,6 +50,9 @@ Pen& Pen::operator= (Pen& source)
 
 Pen::Pen (const unsigned int status) : Pen ()
 {
+    // Assume a marking Pen; this is the most common case
+    bool isMarking = true;
+
     // Lowest byte is the level
     level = status & 0xFF;
 
@@ -61,7 +66,13 @@ Pen::Pen (const unsigned int status) : Pen ()
             myMarkerType = "ink";
             break;
         default:
-            throw InvalidPenException ();
+            // This isn't a marking Pen. We'll know more about
+            //  its validity after we get the color.
+            // This seems a little more future-proof than simply
+            //  bailing out here. We may want to add more types
+            //  of Pen so this is more applicable to other HP
+            //  printer models someday.
+            isMarking = false;
             break;
     }
 
@@ -82,7 +93,15 @@ Pen::Pen (const unsigned int status) : Pen ()
             myHex  = "#000000#00FFFF#FF00FF";
             break;
         default:
-            throw InvalidPenException ();
+            // Any marking Pen without a valid color isn't
+            //  valid itself.
+            if (isMarking)
+            {
+                std::cerr << "DEBUG: Marking pen with no color found!"
+                          << std::endl;
+                throw InvalidPenException ();
+            }
+
             break;
     }
 }
