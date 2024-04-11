@@ -34,8 +34,16 @@ class DeskJet3600
 
         int update ();
 
-        Pen* firstPen ();
-        Pen* nextPen  ();
+        // This is the most disgusting iterator of all time.
+        //  Let this be a lesson: use the standard library.
+        DeskJet3600& begin () { return *this; };
+        DeskJet3600& end   () { return *this; };
+
+        bool operator!= (DeskJet3600&);
+
+        DeskJet3600& operator++ ( );
+
+        Pen* operator* ();
 
     private:
         int parseStatus ();
@@ -48,10 +56,9 @@ class DeskJet3600
 
         std::string deviceUri;
 
-        // This printer will never have more than 2 cartridges.
-        int  numPens;
-        Pen* pens[2];
-        int  curPen;    // for the iterator, as it were
+        Pen* pens[2]; 
+        unsigned int numPens;
+        unsigned int curPen;
 
         char status[1024];
         int statusLen;

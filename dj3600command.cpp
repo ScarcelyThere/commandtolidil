@@ -29,10 +29,8 @@ sendCupsLevels (DeskJet3600& printer)
     std::string markerColors = "ATTR:marker-colors=";
     std::string markerNames  = "ATTR:marker-names=";
     
-    Pen* curPen;
     bool firstPass = true;
-    for (curPen = printer.firstPen () ; curPen != NULL ;
-         curPen = printer.nextPen ())
+    for (Pen* curPen : printer)
     {
         if (firstPass)
         {
@@ -60,7 +58,8 @@ sendCupsLevels (DeskJet3600& printer)
     std::cerr << markerNames  << std::endl;
 }
 
-int main (int argc, char* argv[])
+int
+main (int argc, char* argv[])
 {
     signal (SIGPIPE, SIG_IGN);
 

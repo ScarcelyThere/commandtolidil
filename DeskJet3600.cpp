@@ -65,40 +65,37 @@ DeskJet3600::DeskJet3600 (std::string uri) :
         std::cerr << "DEBUG: Using test backend" << std::endl;
     }
 }
- 
-DeskJet3600::~DeskJet3600 ()
-{
-    if (backend)
-        delete backend;
 
-    clearPens ();
+bool
+DeskJet3600::operator!= (DeskJet3600& other)
+{
+    return (curPen != other.numPens);
+}
+
+DeskJet3600&
+DeskJet3600::operator++ ()
+{
+    if (++curPen > numPens)
+        curPen = numPens;
+
+    return *this;
 }
 
 Pen*
-DeskJet3600::firstPen ()
+DeskJet3600::operator* ()
 {
-    curPen = 0;
-    return nextPen ();
-}
-
-Pen*
-DeskJet3600::nextPen ()
-{
-    if (curPen < numPens)
-        return pens[curPen++];
-
-    return NULL;
+    return pens[curPen];
 }
 
 void
 DeskJet3600::clearPens ()
 {
-    for (int i = 0 ; i < numPens ; i++ )
+    for (unsigned int i = 0 ; i < numPens ; i++ )
         if (pens[i])
             delete pens[i];
 
-    curPen  = 0;
     numPens = 0;
+    curPen  = 0;
 }
 
 int
