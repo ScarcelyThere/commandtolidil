@@ -32,7 +32,7 @@ sendCupsLevels (DeskJet3600& printer)
     Pen* curPen;
     bool firstPass = true;
     for (curPen = printer.firstPen () ; curPen != NULL ;
-            curPen = printer.nextPen ())
+         curPen = printer.nextPen ())
     {
         if (firstPass)
         {
@@ -99,6 +99,7 @@ int main (int argc, char* argv[])
     DeskJet3600 printer (deviceUri);
 
     std::string jobLine;
+    int retVal = 0;
     while (*jobFile >> jobLine)
     {
         std::cerr << "DEBUG: jobLine is " << jobLine << std::endl;
@@ -116,9 +117,8 @@ int main (int argc, char* argv[])
             {
                 // This is probably bad enough that we just stop.
                 std::cerr << "ERROR: Could not get supply levels" << std::endl;
-                if (shouldCloseFile)
-                    delete jobFile;
-                return 1;
+                retVal = 1;
+                break;
             }
         }
         // Any other line is unsupported or a comment. Ignore it.
@@ -127,7 +127,7 @@ int main (int argc, char* argv[])
     if (shouldCloseFile)
         delete jobFile;
 
-    return 0;
+    return retVal;
 }
 
 // vim: et sw=4
