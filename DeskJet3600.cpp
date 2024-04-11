@@ -71,11 +71,7 @@ DeskJet3600::~DeskJet3600 ()
     if (backend)
         delete backend;
 
-    for (Pen* p = firstPen () ; p != NULL ; p = nextPen ())
-    {
-        std::cerr << "DEBUG: Deleting Pen" << std::endl;
-        delete p;
-    }
+    clearPens ();
 }
 
 Pen*

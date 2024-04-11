@@ -19,8 +19,7 @@
 #include "Pen.hpp"
 
 Pen::Pen () :
-    level {0},
-
+    level        {0},
     myName       {"Error"},
     myMarkerType {""},
     myHex        {""}
@@ -28,19 +27,18 @@ Pen::Pen () :
 
 Pen::Pen (Pen& source) :
     level        {source.getLevel ()},
-
-    myName       {source.name ()      },
+    myName       {source.name ()},
     myMarkerType {source.markerType ()},
-    myHex        {source.toHex ()     }
+    myHex        {source.toHex ()}
 { }
 
-Pen& Pen::operator= (Pen& source)
+Pen&
+Pen::operator= (Pen& source)
 {
     if (this == &source)
         return *this;
 
-    level = source.getLevel ();
-
+    level        = source.getLevel ();
     myName       = source.name ();
     myHex        = source.toHex ();
     myMarkerType = source.markerType ();
