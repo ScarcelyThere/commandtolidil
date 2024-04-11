@@ -82,18 +82,18 @@ int main (int argc, char* argv[])
     //  assuming any issues with the supplied filename doesn't imply defer
     //  to standard input, but complain.
     std::istream* jobFile = &std::cin;
-    bool shouldCloseInput = false;
+    bool shouldCloseFile = false;
     if (argc == 7)
     {
         jobFile = new std::ifstream (argv[6]);
-        if (!(*jobFile))
+        if (!*jobFile)
         {
             std::cerr << "DEBUG: Could not open file containing commands" << std::endl;
             delete jobFile;
             return 1;
         }
         else
-            shouldCloseInput = true;
+            shouldCloseFile = true;
     }
 
     DeskJet3600 printer (deviceUri);
@@ -116,7 +116,7 @@ int main (int argc, char* argv[])
             {
                 // This is probably bad enough that we just stop.
                 std::cerr << "ERROR: Could not get supply levels" << std::endl;
-                if (shouldCloseInput)
+                if (shouldCloseFile)
                     delete jobFile;
                 return 1;
             }
@@ -124,7 +124,7 @@ int main (int argc, char* argv[])
         // Any other line is unsupported or a comment. Ignore it.
     }
 
-    if (shouldCloseInput)
+    if (shouldCloseFile)
         delete jobFile;
 
     return 0;
