@@ -37,9 +37,9 @@ class DeskJet3600
         class Pens
         {
             public:
-                Pens  () { penArray = NULL, numPens = 0; curPen = 0; };
-                Pens  (Pen** pens, unsigned int length,
-                       unsigned int current) {
+                Pens () { penArray = NULL, numPens = 0; curPen = 0; };
+                Pens (Pen** pens, unsigned int length,
+                      unsigned int current) {
                     penArray = pens;
                     numPens  = length;
                     curPen   = current;
@@ -49,6 +49,7 @@ class DeskJet3600
                     numPens  = other.numPens;
                     curPen   = other.curPen;
                 };
+                // We do not own the penArray, so we do nothing to it.
                 ~Pens () = default;
 
                 bool  operator!= (Pens&);
@@ -64,14 +65,13 @@ class DeskJet3600
                 unsigned int numPens;
                 unsigned int curPen;
 
+                // This is owned by DeskJet3600, so we do not allocate
+                //  or delete it.
                 Pen** penArray;
         };
 
         Pens begin () { return Pens (pens, numPens, 0      ); };
         Pens end   () { return Pens (pens, numPens, numPens); };
-
-        Pen* firstPen ();
-        Pen* nextPen  ();
 
     private:
         int parseStatus ();

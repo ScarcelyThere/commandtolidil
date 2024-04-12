@@ -117,22 +117,6 @@ DeskJet3600::update ()
     return parseStatus ();
 }
 
-Pen*
-DeskJet3600::firstPen ()
-{
-    curPen = 0;
-    return nextPen ();
-}
-
-Pen*
-DeskJet3600::nextPen ()
-{
-    if (curPen < numPens)
-        return pens[curPen++];
-
-    return NULL;
-}
-
 bool
 DeskJet3600::Pens::operator!= (Pens& other)
 {
