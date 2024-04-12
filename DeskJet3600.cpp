@@ -133,6 +133,14 @@ DeskJet3600::nextPen ()
     return NULL;
 }
 
+bool
+DeskJet3600::Pens::operator!= (Pens& other)
+{
+    return !(penArray == other.penArray &&
+             numPens  == other.numPens  &&
+             curPen   == other.curPen);
+}
+
 int
 DeskJet3600::parseStatus ()
 {
