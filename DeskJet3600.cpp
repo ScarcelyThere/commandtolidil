@@ -66,33 +66,30 @@ DeskJet3600::DeskJet3600 (std::string uri) :
     }
 }
 
-bool
-DeskJet3600::operator!= (DeskJet3600& other)
+DeskJet3600::DeskJet3600 (DeskJet3600& source) :
+    validStatus {source.validStatus},
+    backend     {source.backend},
+    deviceUri   {source.deviceUri},
+    numPens     {source.numPens},
+    curPen      {source.curPen}
 {
-    return (curPen != other.numPens);
+    for (int i = 0 ; i < source.numPens ; i++)
+        pens[i] = new Pen(*source.pens[i]);
 }
 
-DeskJet3600&
-DeskJet3600::operator++ ()
+DeskJet3600::~DeskJet3600 ()
 {
-    if (++curPen > numPens)
-        curPen = numPens;
+    if (backend)
+        delete backend;
 
-    return *this;
-}
-
-Pen*
-DeskJet3600::operator* ()
-{
-    return pens[curPen];
+    clearPens ();
 }
 
 void
 DeskJet3600::clearPens ()
 {
     for (unsigned int i = 0 ; i < numPens ; i++ )
-        if (pens[i])
-            delete pens[i];
+        delete pens[i];
 
     numPens = 0;
     curPen  = 0;
@@ -118,6 +115,22 @@ DeskJet3600::update ()
     clearPens ();
 
     return parseStatus ();
+}
+
+Pen*
+DeskJet3600::firstPen ()
+{
+    curPen = 0;
+    return nextPen ();
+}
+
+Pen*
+DeskJet3600::nextPen ()
+{
+    if (curPen < numPens)
+        return pens[curPen++];
+
+    return NULL;
 }
 
 int
@@ -167,8 +180,12 @@ DeskJet3600::parseStatus ()
 
         try
         {
+            std::cerr << "DEBUG: About to allocate Pen" << std::endl;
             pen = new Pen (curRawPen);
+            std::cerr << "DEBUG: Created new Pen successfully" << std::endl;
             pens[numPens++] = pen;
+            std::cerr << "DEBUG: Successfully assigned Pen to array; numPens is "
+                      << numPens << std::endl;
         }
         catch (const InvalidPenException &e)
         {

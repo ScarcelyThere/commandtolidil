@@ -25,7 +25,7 @@ class DeskJet3600
     public:
         DeskJet3600 ();
         DeskJet3600 (std::string uri);
-        DeskJet3600 (DeskJet3600& source);
+        DeskJet3600 (DeskJet3600&);
 
         ~DeskJet3600 ();
 
@@ -34,16 +34,8 @@ class DeskJet3600
 
         int update ();
 
-        // This is the most disgusting iterator of all time.
-        //  Let this be a lesson: use the standard library.
-        DeskJet3600& begin () { return *this; };
-        DeskJet3600& end   () { return *this; };
-
-        bool operator!= (DeskJet3600&);
-
-        DeskJet3600& operator++ ( );
-
-        Pen* operator* ();
+        Pen* firstPen ();
+        Pen* nextPen  ();
 
     private:
         int parseStatus ();
@@ -61,7 +53,6 @@ class DeskJet3600
         unsigned int curPen;
 
         char status[1024];
-        int statusLen;
 };
 
 #endif
