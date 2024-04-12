@@ -10,6 +10,15 @@ cleaning?
 
 Then this is for you!
 
+Beyond that, it's probably obvious it's a project where I try to
+learn or remember C++. They tried to show me operator overloading and
+templates, but I remember very little beyond classes. That's
+changing, and thank you for coming along for the ride!
+
+As another aside, I debated redoing this in C, as that's what CUPS is
+written in. However, if you need this, you're using HPLIP, and the
+part of that you'd be using is C++.
+
 Obligatory Warning
 ------------------
 This software is barely alpha-quality. There's a test case, but it's
