@@ -172,12 +172,8 @@ DeskJet3600::parseStatus ()
 
         try
         {
-            std::cerr << "DEBUG: About to allocate Pen" << std::endl;
             pen = new Pen (curRawPen);
-            std::cerr << "DEBUG: Created new Pen successfully" << std::endl;
             pens[numPens++] = pen;
-            std::cerr << "DEBUG: Successfully assigned Pen to array; numPens is "
-                      << numPens << std::endl;
         }
         catch (const InvalidPenException &e)
         {
