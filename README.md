@@ -19,6 +19,18 @@ As another aside, I debated redoing this in C, as that's what CUPS is
 written in. However, if you need this, you're using HPLIP, and the
 part of that you'd be using is C++.
 
+Notes on the Rename
+-------------------
+If you've been here since this was dj3600command, feel free to
+uninstall the previous filter (check `/usr/lib/cups/filter/` for it,)
+rebuild, and install.
+
+You should also apply the `hp-deskjet_f4100.djtocommand.patch` patch
+to change your PPD to use commandtolidil, or apply the supplied PPD
+via CUPS' Web interface or something like `system-config-printer`.
+At this time, only the Hewlett-Packard DeskJet F4180 All-in-One PPD
+is included.
+
 Obligatory Warning
 ------------------
 This software is barely alpha-quality. There's a test case, but it's
