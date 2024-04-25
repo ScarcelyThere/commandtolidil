@@ -95,6 +95,26 @@ DeskJet3600::clearPens ()
     curPen  = 0;
 }
 
+Pen*
+DeskJet3600::firstPen ()
+{
+    curPen = 0;
+
+    return nextPen ();
+}
+
+bool
+DeskJet3600::morePens ()
+{
+    return (curPen <= numPens);
+}
+
+Pen*
+DeskJet3600::nextPen ()
+{
+    return pens[curPen++];
+}
+
 int
 DeskJet3600::update ()
 {
@@ -106,23 +126,11 @@ DeskJet3600::update ()
     if (backend->getDeviceID (deviceID))
     {
         strncpy (status, deviceID.c_str (), sizeof(status));
-        validStatus = true;
+        clearPens ();
+        return parseStatus ();
     }
     else
-        validStatus = false;
-
-    // Clear the pen array, just in case this was called twice.
-    clearPens ();
-
-    return parseStatus ();
-}
-
-bool
-DeskJet3600::Pens::operator!= (Pens& other)
-{
-    return !(penArray == other.penArray &&
-             numPens  == other.numPens  &&
-             curPen   == other.curPen);
+        return 0;
 }
 
 int
@@ -131,9 +139,6 @@ DeskJet3600::parseStatus ()
     const int  penDataOffset = 18,        // in hex digits
                penDataLength = 8;         // in hex digits
     const char penDataFormat[] = "%8x";   // reads two bytes
-
-    if (!validStatus)
-        return 0;
 
     char* statusChunk = strstr (status, ";S:");
     if (!statusChunk)

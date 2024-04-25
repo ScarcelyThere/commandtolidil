@@ -34,51 +34,13 @@ class DeskJet3600
 
         int update ();
 
-        class Pens
-        {
-            public:
-                Pens () { penArray = NULL, numPens = 0; curPen = 0; };
-                Pens (Pen** pens, unsigned int length,
-                      unsigned int current) {
-                    penArray = pens;
-                    numPens  = length;
-                    curPen   = current;
-                };
-                Pens (Pens& other) {
-                    penArray = other.penArray;
-                    numPens  = other.numPens;
-                    curPen   = other.curPen;
-                };
-                // We do not own the penArray, so we do nothing to it.
-                ~Pens () = default;
-
-                bool  operator!= (Pens&);
-                Pens& operator++ () {
-                    if (curPen < numPens)
-                        curPen++;
-
-                    return *this;
-                };
-                Pen* operator* () { return penArray[curPen]; };
-
-            private:
-                unsigned int numPens;
-                unsigned int curPen;
-
-                // This is owned by DeskJet3600, so we do not allocate
-                //  or delete it.
-                Pen** penArray;
-        };
-
-        Pens begin () { return Pens (pens, numPens, 0      ); };
-        Pens end   () { return Pens (pens, numPens, numPens); };
+        Pen* firstPen ();
+        bool morePens ();
+        Pen* nextPen  ();
 
     private:
         int parseStatus ();
         void clearPens ();
-
-        // Was this initialized?
-        bool validStatus;
 
         Backend* backend;
 
