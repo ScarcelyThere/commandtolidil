@@ -1,5 +1,5 @@
-dj3600command
-=============
+commandtolidil
+==============
 
 What Is It?
 -----------
@@ -37,7 +37,7 @@ Become root, then
 You may want to restart CUPS. Re-add your DeskJet F4180 and select the
 supplied PPD.
 
-Should you be using my custom HPLIP Meson build, dj3600command will
+Should you be using my custom HPLIP Meson build, commandtolidil will
 find the `hpmud` library and use that to query the printer if the
 printer is set to use the HP backend. Using your distribution's HPLIP?
 Set the Meson build option `hpbackend` to `enabled` and we will try
@@ -47,8 +47,8 @@ this option is set.
 
 Support for the standard CUPS USB backend is also included if you like
 to build HPLIP with `--enable-hpcups-only`. This is always built, so you
-don't need to set anything for this to happen. Just select the USB backend
-when setting up the printer.
+don't need to set anything for this to happen. Just select the USB
+backend when setting up the printer.
 
 Be sure to use the supplied PPD file when setting up the printer. If
 you've customized one, feel free to apply the supplied patch.

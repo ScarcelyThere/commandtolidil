@@ -1,4 +1,4 @@
-# Meson build for dj3600command
+# Meson build for commandtolidil
 # This is free software; you can redistribute it and/or modify it under the terms
 # of the GNU General Public License as published by the Free Software Foundation,
 # either version 3 of the License, or (at your option) any other version.
@@ -8,9 +8,9 @@
 # PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with
-# dj3600command. If not, see <https://www.gnu.org/licenses/>.
+# commandtolidil. If not, see <https://www.gnu.org/licenses/>.
 
-project( 'dj3600cmdfilter', 'cpp', version: '0.9' )
+project( 'commandtolidil', 'cpp', version: '0.9' )
 
 # This is specifically built by my custom Meson build in HP's regular hplip source
 #  tree. Should you be using, say, your distribution's version, there's a build
@@ -24,7 +24,7 @@ hpmudsource = 'HpmudBackend.cpp'
 hpmuddefine = 'BUILD_HPMUD'
 
 sources = [ 'Pen.cpp', 'DeskJet3600.cpp',
-            'dj3600command.cpp', 'USBBackend.cpp',
+            'commandtolidil.cpp', 'USBBackend.cpp',
             'TestBackend.cpp' ]
 
 args     = [ ]
@@ -49,14 +49,14 @@ else
   deps = [ cups ]
 endif
 
-dj3600cmdfilter = executable( 'dj3600command', sources,
-                              install: true,
-                              cpp_args: args,
-                              link_args: linkargs,
-                              install_dir: filter_install_dir,
-                              dependencies: deps )
+commandtolidil = executable( 'commandtolidil', sources,
+                             install: true,
+                             cpp_args: args,
+                             link_args: linkargs,
+                             install_dir: filter_install_dir,
+                             dependencies: deps )
 
-pentest = executable( 'dj3600test', [ 'USBBackend.cpp', 'Test.cpp', 'Pen.cpp',
-                                      'DeskJet3600.cpp', 'TestBackend.cpp' ],
-                      install: false,
-                      dependencies: cups )
+commandtest = executable( 'commandtest', [ 'USBBackend.cpp', 'Test.cpp', 'Pen.cpp',
+                                           'DeskJet3600.cpp', 'TestBackend.cpp' ],
+                          install: false,
+                          dependencies: cups )

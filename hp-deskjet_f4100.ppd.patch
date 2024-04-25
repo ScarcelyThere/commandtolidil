@@ -4,9 +4,9 @@
  *cupsModelNumber: 0
  *cupsManualCopies: True
  *cupsFilter: "application/vnd.cups-raster 0 hpcups"
-+*% Additional support for dj3600command
++*% Additional support for commandtolidil
 +*cupsCommands: "Clean PrintSelfTestPage ReportLevels"
-+*cupsFilter: "application/vnd.cups-command 0 dj3600command"
++*cupsFilter: "application/vnd.cups-command 0 commandtolidil"
  *cupsLanguages: "en"
  *UIConstraints: *MediaType Glossy *OutputMode DraftRGB
  *UIConstraints: *OutputMode DraftRGB *MediaType Glossy
