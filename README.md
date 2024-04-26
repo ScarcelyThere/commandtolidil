@@ -73,6 +73,16 @@ Untested Printers
 -----------------
 - Every other printer ever
 
+What About the Future?
+----------------------
+CUPS 3 is on the horizon, and it removes the entire filter system along with
+PPD files. This renders commandtolidil useless. However, the pappl-retrofit
+project supplies `legacy-printer-app` which makes the existing CUPS 2.x
+environment into an IPP Everywhere printer application. Since you're likely
+using this from an existing CUPS 2.x installation, this should let you
+continue using your DeskJet F4180 well into the future. I have not tested
+this yet, but I hope to soon!
+
 Using It
 --------
 This command filter implements the commands `Clean all`, `PrintSelfTestPage`,
