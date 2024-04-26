@@ -76,7 +76,8 @@ Untested Printers
 What About the Future?
 ----------------------
 CUPS 3 is on the horizon, and it removes the entire filter system along with
-PPD files. This renders commandtolidil useless. However, the pappl-retrofit
+PPD files. This renders commandtolidil useless. However, the [pappl-retrofit]
+(https://github.com/OpenPrinting/pappl-retrofit) 
 project supplies `legacy-printer-app` which makes the existing CUPS 2.x
 environment into an IPP Everywhere printer application. Since you're likely
 using this from an existing CUPS 2.x installation, this should let you
