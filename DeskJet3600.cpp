@@ -148,8 +148,8 @@ DeskJet3600::parseStatus ()
     std::basic_stringbuf pensInHex (deviceID.substr (offset));
     pensInHex >> std::hex;
 
-    unsigned int revision;
-    
+    unsigned short revision; // Two bytes
+    pensInHex >> revision;
 
     // DeskJet 3600 is revision 3, so anything else won't work here
     if (revision != 3)
