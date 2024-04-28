@@ -45,12 +45,11 @@ class DeskJet3600
         Backend* backend;
 
         std::string deviceUri;
+        std::string deviceID;
 
         Pen* pens[2]; 
         unsigned int numPens;
         unsigned int curPen;
-
-        char status[1024];
 };
 
 #endif

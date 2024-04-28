@@ -15,7 +15,7 @@
  */
 
 #include <iostream>
-#include <cstring>
+#include <sstring>
 #include "DeskJet3600.hpp"
 #include "USBBackend.hpp"
 #include "TestBackend.hpp"
@@ -114,14 +114,11 @@ DeskJet3600::nextPen ()
 int
 DeskJet3600::update ()
 {
-    std::string deviceID;
-
     if (backend == NULL)
         return 0;
 
     if (backend->getDeviceID (deviceID))
     {
-        strncpy (status, deviceID.c_str (), sizeof(status));
         clearPens ();
         return parseStatus ();
     }
@@ -136,17 +133,23 @@ DeskJet3600::parseStatus ()
                penDataLength = 8;         // in hex digits
     const char penDataFormat[] = "%8x";   // reads two bytes
 
-    char* statusChunk = strstr (status, ";S:");
-    if (!statusChunk)
+    size_t offset;
+
+    // Where's the relevant hex status string?
+    offset = deviceID.find (";S:");
+    if (offset == deviceID.npos)
         return 0;
 
     // The pens are found at string offset 18, after the ";S:"
-    statusChunk += 3;
-    if (strlen (statusChunk) < penDataOffset)
+    offset += 3 + penDataOffset;
+    if (deviceID.length () < offset + penDataLength)
         return 0;
 
+    std::basic_stringbuf pensInHex (deviceID.substr (offset));
+    pensInHex >> std::hex;
+
     unsigned int revision;
-    sscanf (statusChunk, "%2x", &revision);
+    
 
     // DeskJet 3600 is revision 3, so anything else won't work here
     if (revision != 3)
@@ -155,11 +158,11 @@ DeskJet3600::parseStatus ()
     unsigned int penCount,
                  curRawPen;
 
-    statusChunk += penDataOffset;
+    offset += penDataOffset;
 
     // First nybble is the number of pens, which we obtain and then
     //  skip over
-    sscanf (statusChunk++, "%1x", &penCount);
+    penCount << deviceID.at (offset++);
 
     // DeskJet 3600 has two cartridge slots. Any more and it's not that
     //  printer model.
@@ -169,7 +172,7 @@ DeskJet3600::parseStatus ()
     Pen* pen;
     for (unsigned int i = 0 ; i < penCount ; i++)
     {
-        sscanf (statusChunk, penDataFormat, &curRawPen);
+        curRawPen << deviceID.substr (offset, penDataLength);
 
         try
         {
@@ -181,7 +184,7 @@ DeskJet3600::parseStatus ()
             std::cout << "DEBUG: Invalid Pen discovered" << std::endl;
         }
 
-        statusChunk += penDataLength;
+        offset += penDataLength;
     }
 
     return 1;
