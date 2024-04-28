@@ -142,27 +142,35 @@ DeskJet3600::parseStatus ()
         return 0;
 
     // The pens are found at string offset 18, after the ";S:"
-    offset += 3 + penDataOffset;
+    offset += 3;
     if (deviceID.length () < offset + penDataLength)
         return 0;
 
-    std::basic_stringstream pensInHex (deviceID.substr (offset));
-    pensInHex >> std::hex;
+    std::cout << "DEBUG: pensInHex will be "
+              << deviceID.substr (offset) << std::endl;
 
-    unsigned char revision;
-    pensInHex >> revision;
+    std::basic_stringstream pensInHex (deviceID.substr (offset));
+
+    unsigned short int revision;
+    std::cout << "DEBUG: pensInHex position is " << pensInHex.tellg ()
+              << std::endl;
+    pensInHex >> std::hex >> revision;
     std::cout << "DEBUG: revision is " << revision << std::endl;
+    std::cout << "DEBUG: used " << pensInHex.tellg ()
+              << " characters for that" << std::endl;
 
     // DeskJet 3600 is revision 3, so anything else won't work here
     if (revision != 3)
         return 0;
 
-    unsigned char      penCount,
+    pensInHex.ignore (penDataOffset);
+
+    unsigned char      penCount;
     unsigned short int curRawPen;
 
     // First nybble is the number of pens, which we obtain and then
     //  skip over
-    pensInHex >> penCount;
+    pensInHex >> std::hex >> penCount;
 
     // DeskJet 3600 has two cartridge slots. Any more and it's not that
     //  printer model.
@@ -172,7 +180,7 @@ DeskJet3600::parseStatus ()
     Pen* pen;
     for (unsigned int i = 0 ; i < penCount ; i++)
     {
-        pensInHex >> curRawPen;
+        pensInHex >> std::hex >> curRawPen;
 
         try
         {
