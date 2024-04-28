@@ -15,7 +15,8 @@
  */
 
 #include <iostream>
-#include <sstring>
+#include <sstream>
+#include <string>
 #include "DeskJet3600.hpp"
 #include "USBBackend.hpp"
 #include "TestBackend.hpp"
@@ -145,24 +146,23 @@ DeskJet3600::parseStatus ()
     if (deviceID.length () < offset + penDataLength)
         return 0;
 
-    std::basic_stringbuf pensInHex (deviceID.substr (offset));
+    std::basic_stringstream pensInHex (deviceID.substr (offset));
     pensInHex >> std::hex;
 
-    unsigned short revision; // Two bytes
+    unsigned char revision;
     pensInHex >> revision;
+    std::cout << "DEBUG: revision is " << revision << std::endl;
 
     // DeskJet 3600 is revision 3, so anything else won't work here
     if (revision != 3)
         return 0;
 
-    unsigned int penCount,
-                 curRawPen;
-
-    offset += penDataOffset;
+    unsigned char      penCount,
+    unsigned short int curRawPen;
 
     // First nybble is the number of pens, which we obtain and then
     //  skip over
-    penCount << deviceID.at (offset++);
+    pensInHex >> penCount;
 
     // DeskJet 3600 has two cartridge slots. Any more and it's not that
     //  printer model.
@@ -172,7 +172,7 @@ DeskJet3600::parseStatus ()
     Pen* pen;
     for (unsigned int i = 0 ; i < penCount ; i++)
     {
-        curRawPen << deviceID.substr (offset, penDataLength);
+        pensInHex >> curRawPen;
 
         try
         {
@@ -184,6 +184,7 @@ DeskJet3600::parseStatus ()
             std::cout << "DEBUG: Invalid Pen discovered" << std::endl;
         }
 
+        // TODO: Might be useless now
         offset += penDataLength;
     }
 
