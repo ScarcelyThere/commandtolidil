@@ -15,7 +15,7 @@
  */
 
 #include <iostream>
-#include <sstream>
+#include <cstring>
 #include <string>
 #include "DeskJet3600.hpp"
 #include "USBBackend.hpp"
@@ -130,9 +130,9 @@ DeskJet3600::update ()
 int
 DeskJet3600::parseStatus ()
 {
-    const int  penDataOffset = 18,        // in hex digits
-               penDataLength = 8;         // in hex digits
-    const char penDataFormat[] = "%8x";   // reads two bytes
+    // Both offsets are in hexadecimal digits
+    const int  penDataOffset = 18,
+               penDataLength = 8;
 
     size_t offset;
 
@@ -143,34 +143,27 @@ DeskJet3600::parseStatus ()
 
     // The pens are found at string offset 18, after the ";S:"
     offset += 3;
-    if (deviceID.length () < offset + penDataLength)
+    if (deviceID.length () < offset + penDataOffset)
         return 0;
 
-    std::cout << "DEBUG: pensInHex will be "
-              << deviceID.substr (offset) << std::endl;
+    std::string relevantStatus = deviceID.substr (offset);
+    char const *rawStatus = relevantStatus.c_str ();
 
-    std::basic_stringstream pensInHex (deviceID.substr (offset));
-
-    unsigned short int revision;
-    std::cout << "DEBUG: pensInHex position is " << pensInHex.tellg ()
-              << std::endl;
-    pensInHex >> std::hex >> revision;
-    std::cout << "DEBUG: revision is " << revision << std::endl;
-    std::cout << "DEBUG: used " << pensInHex.tellg ()
-              << " characters for that" << std::endl;
+    unsigned int revision;
+    sscanf (rawStatus, "%2x", &revision);
 
     // DeskJet 3600 is revision 3, so anything else won't work here
     if (revision != 3)
         return 0;
 
-    pensInHex.ignore (penDataOffset);
+    unsigned int penCount,
+                 curRawPen;
 
-    unsigned char      penCount;
-    unsigned short int curRawPen;
+    rawStatus += penDataOffset;
 
     // First nybble is the number of pens, which we obtain and then
     //  skip over
-    pensInHex >> std::hex >> penCount;
+    sscanf (rawStatus++, "%1x", &penCount);
 
     // DeskJet 3600 has two cartridge slots. Any more and it's not that
     //  printer model.
@@ -180,8 +173,7 @@ DeskJet3600::parseStatus ()
     Pen* pen;
     for (unsigned int i = 0 ; i < penCount ; i++)
     {
-        pensInHex >> std::hex >> curRawPen;
-
+        sscanf (rawStatus, "%8x", &curRawPen);
         try
         {
             pen = new Pen (curRawPen);
@@ -192,8 +184,7 @@ DeskJet3600::parseStatus ()
             std::cout << "DEBUG: Invalid Pen discovered" << std::endl;
         }
 
-        // TODO: Might be useless now
-        offset += penDataLength;
+        rawStatus += penDataLength;
     }
 
     return 1;
