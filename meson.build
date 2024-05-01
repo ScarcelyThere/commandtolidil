@@ -24,8 +24,7 @@ hpmudsource = 'HpmudBackend.cpp'
 hpmuddefine = 'BUILD_HPMUD'
 
 sources = [ 'Pen.cpp', 'DeskJet3600.cpp',
-            'commandtolidil.cpp', 'USBBackend.cpp',
-            'TestBackend.cpp' ]
+            'commandtolidil.cpp', 'USBBackend.cpp' ]
 
 args     = [ ]
 linkargs = [ ]
@@ -59,4 +58,5 @@ commandtolidil = executable( 'commandtolidil', sources,
 commandtest = executable( 'commandtest', [ 'USBBackend.cpp', 'Test.cpp', 'Pen.cpp',
                                            'DeskJet3600.cpp', 'TestBackend.cpp' ],
                           install: false,
-                          dependencies: cups )
+                          dependencies: cups,
+                          cpp_args: '-DTESTING' )

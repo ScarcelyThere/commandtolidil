@@ -19,7 +19,10 @@
 #include <string>
 #include "DeskJet3600.hpp"
 #include "USBBackend.hpp"
-#include "TestBackend.hpp"
+
+#ifdef TESTING
+#  include "TestBackend.hpp"
+#endif
 
 #ifdef BUILD_HPMUD
 #  include "HpmudBackend.h"
@@ -36,33 +39,27 @@ DeskJet3600::DeskJet3600 (std::string uri) :
     numPens   {0},
     curPen    {0}
 {
-    if (deviceUri.length () > 1 &&
-            deviceUri.compare (0, 2, "hp") == 0)
-    {
-#ifdef BUILD_HPMUD
-        backend = new HpmudBackend (uri.data ());
-        std::cerr << "DEBUG: Selected HP backend" << std::endl;
-#else
-        // We're using the HP backend, but we didn't build support
-        //  for that. We don't really have any good way to get around
-        //  this.
-        backend = NULL;
-        std::cerr << "ERROR: Detected HP backend, but support was "
-                     "not built for that" << std::endl;
-#endif
-    }
-    else if (deviceUri.length () > 2 &&
-             deviceUri.compare (0, 3, "usb") == 0)
+    if (deviceUri.length () > 2 &&
+        deviceUri.compare (0, 3, "usb") == 0)
     {
         backend = new USBBackend ();
-        std::cerr << "DEBUG: Selected USB backend" << std::endl;
+        std::cerr << "DEBUG: USB backend selected" << std::endl;
     }
+#ifdef BUILD_HPMUD
+    else if (deviceUri.length () > 1 &&
+        deviceUri.compare (0, 2, "hp") == 0)
+    {
+        backend = new HpmudBackend (uri.data ());
+        std::cerr << "DEBUG: Selected HP backend" << std::endl;
+    }
+#endif
+#ifdef TESTING
     else
     {
-        // For now, fake a backend for testing purposes?
         backend = new TestBackend ();
         std::cerr << "DEBUG: Using test backend" << std::endl;
     }
+#endif
 }
 
 DeskJet3600::DeskJet3600 (DeskJet3600& source) :
