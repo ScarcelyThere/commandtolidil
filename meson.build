@@ -30,21 +30,11 @@ args     = [ ]
 linkargs = [ ]
 
 if hpmud.found()
-  message( 'Custom hpmud found, enabling it' )
+  message( 'Custom HPMUD found, enabling it (thanks for using hplip_meson!)' )
   deps = [ cups, hpmud ]
   sources = sources + hpmudsource
   args = '-D' + hpmuddefine
 else
-  message( 'Custom hpmud not found, falling back to your supplied option' )
-  if get_option( 'hpbackend' ).enabled( )
-    message( ' ...which is enabled' )
-    linkargs = [ '-lhpmud' ]
-    sources = sources + hpmudsource
-    args = '-D' + hpmuddefine
-  else
-    message( ' ...which is NOT enabled' )
-  endif
-
   deps = [ cups ]
 endif
 
