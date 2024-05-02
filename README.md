@@ -52,15 +52,8 @@ supplied PPD.
 Should you be using my custom HPLIP Meson build, commandtolidil will
 find the `hpmud` library and use that to query the printer if the
 printer is set to use the HP backend. Using your distribution's HPLIP?
-Set the Meson build option `hpbackend` to `enabled` and we will try
-linking with `hpmud` anyway. **Note that the build will fail** if
-`hpmud` was not built as a shared library by your distribution and
-this option is set.
-
-Support for the standard CUPS USB backend is also included if you like
-to build HPLIP with `--enable-hpcups-only`. This is always built, so you
-don't need to set anything for this to happen. Just select the USB
-backend when setting up the printer.
+You probably don't need this project at all! Just issue `hp-levels`
+from your favorite shell.
 
 Be sure to use the supplied PPD file when setting up the printer. If
 you've customized one, feel free to apply the supplied patch.
