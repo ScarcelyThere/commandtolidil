@@ -35,13 +35,13 @@ Pen::Pen (Pen& source) :
 Pen&
 Pen::operator= (Pen& source)
 {
-    if (this == &source)
-        return *this;
-
-    level        = source.getLevel ();
-    myName       = source.name ();
-    myHex        = source.toHex ();
-    myMarkerType = source.markerType ();
+    if (this != &source)
+    {
+        level        = source.getLevel ();
+        myName       = source.name ();
+        myHex        = source.toHex ();
+        myMarkerType = source.markerType ();
+    }
 
     return *this;
 }
