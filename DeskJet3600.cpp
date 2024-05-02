@@ -59,6 +59,9 @@ DeskJet3600::DeskJet3600 (std::string uri) :
         backend = new TestBackend ();
         std::cerr << "DEBUG: Using test backend" << std::endl;
     }
+#else
+    else
+        std::cerr << "ERROR: No compatible backend" << std::endl;
 #endif
 }
 
