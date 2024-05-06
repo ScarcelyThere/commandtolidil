@@ -19,6 +19,7 @@
 #include <string>
 #include "Pen.hpp"
 #include "Backend.hpp"
+#include "LidilCommand.hpp"
 
 class DeskJet3600
 {
@@ -50,6 +51,8 @@ class DeskJet3600
         Pen* pens[2]; 
         unsigned int numPens;
         unsigned int curPen;
+
+        LidilCommand* lidilCmd;
 };
 
 #endif
