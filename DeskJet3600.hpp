@@ -19,7 +19,6 @@
 #include <string>
 #include "Pen.hpp"
 #include "Backend.hpp"
-#include "LidilCommand.hpp"
 
 class DeskJet3600
 {
@@ -40,6 +39,11 @@ class DeskJet3600
         Pen* nextPen  ();
 
     private:
+        const char cleanCmd      = 8;
+        const char printAlignCmd = 12;
+
+        const size_t minLdlCmdLen = 16;
+
         int parseStatus ();
         void clearPens ();
 
@@ -52,7 +56,8 @@ class DeskJet3600
         unsigned int numPens;
         unsigned int curPen;
 
-        LidilCommand* lidilCmd;
+        void  sendLidilCmd (char);
+        char* buildLidilCmd (char);
 };
 
 #endif

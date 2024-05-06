@@ -19,7 +19,6 @@
 #include <string>
 #include "DeskJet3600.hpp"
 #include "USBBackend.hpp"
-#include "LidilCommand.hpp"
 
 #ifdef TESTING
 #  include "TestBackend.hpp"
@@ -32,8 +31,7 @@
 DeskJet3600::DeskJet3600 () :
     backend   {NULL},
     numPens   {0},
-    curPen    {0},
-    lidilCmd  {NULL}
+    curPen    {0}
 { }
 
 DeskJet3600::DeskJet3600 (std::string uri) :
@@ -46,7 +44,6 @@ DeskJet3600::DeskJet3600 (std::string uri) :
     {
         backend = new USBBackend ();
         std::cerr << "DEBUG: USB backend selected" << std::endl;
-        lidilCmd = new LidilCommand (&std::cout);
     }
 #ifdef BUILD_HPMUD
     else if (deviceUri.length () > 1 &&
@@ -54,7 +51,6 @@ DeskJet3600::DeskJet3600 (std::string uri) :
     {
         backend = new HpmudBackend (uri.data ());
         std::cerr << "DEBUG: Selected HP backend" << std::endl;
-        lidilCmd = new LidilCommand (&std::cout);
     }
 #endif
 #ifdef TESTING
@@ -62,14 +58,10 @@ DeskJet3600::DeskJet3600 (std::string uri) :
     {
         backend = new TestBackend ();
         std::cerr << "DEBUG: Using test backend" << std::endl;
-        lidilCmd = NULL;
     }
 #else
     else
-    {
         std::cerr << "ERROR: No compatible backend" << std::endl;
-        lidilCmd = NULL;
-    }
 #endif
 }
 
@@ -77,8 +69,7 @@ DeskJet3600::DeskJet3600 (DeskJet3600& source) :
     backend   {source.backend},
     deviceUri {source.deviceUri},
     numPens   {source.numPens},
-    curPen    {source.curPen},
-    lidilCmd  {source.lidilCmd}
+    curPen    {source.curPen}
 {
     for (int i = 0 ; i < source.numPens ; i++)
         pens[i] = new Pen(*source.pens[i]);
@@ -88,9 +79,6 @@ DeskJet3600::~DeskJet3600 ()
 {
     if (backend)
         delete backend;
-
-    if (lidilCmd)
-        delete lidilCmd;
 
     clearPens ();
 }
@@ -205,17 +193,47 @@ DeskJet3600::parseStatus ()
 void
 DeskJet3600::printAlignmentPage ()
 {
-    if (!lidilCmd->send (LidilCmdType::PrintAlignPage))
-        std::cerr << "DEBUG: Could not send command to print alignment"
-                  << std::endl;
+    sendLidilCmd (printAlignCmd);
 }
 
 void
 DeskJet3600::clean ()
 {
-    if (!lidilCmd->send (LidilCmdType::Clean))
-        std::cerr << "DEBUG: Could not send command to clean"
-                  << std::endl;
+    sendLidilCmd (cleanCmd);
+}
+
+void
+DeskJet3600::sendLidilCmd (char command)
+{
+    char* cmd = buildLidilCmd (command);
+    std::cout.write (cmd, minLdlCmdLen);
+    std::cout.flush ();
+    delete cmd;
+}
+
+char*
+DeskJet3600::buildLidilCmd (char command)
+{
+    char* cmd = new char[minLdlCmdLen];
+
+    // Frame the packet
+    cmd[0] = cmd[minLdlCmdLen - 1] = '$';
+
+    // Next two bytes are the size
+    cmd[1] = '\0';
+    cmd[2] = minLdlCmdLen;
+
+    // Bytes four and five are zero for a command
+    cmd[3] = cmd[4] = '\0';
+
+    // Sixth byte is the command
+    cmd[5] = command;
+
+    // Pad the command to the end
+    for (int i = 6 ; i < minLdlCmdLen - 1 ; i++)
+        cmd[i] = '\0';
+
+    return cmd;
 }
 
 // vim: et sw=4

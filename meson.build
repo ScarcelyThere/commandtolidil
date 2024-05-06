@@ -23,7 +23,7 @@ filter_install_dir = cups.get_variable( 'cups_serverbin' ) / 'filter'
 hpmudsource = 'HpmudBackend.cpp'
 hpmuddefine = 'BUILD_HPMUD'
 
-sources = [ 'Pen.cpp', 'DeskJet3600.cpp', 'LidilCommand.cpp',
+sources = [ 'Pen.cpp', 'DeskJet3600.cpp',
             'commandtolidil.cpp', 'USBBackend.cpp' ]
 
 args     = [ ]
@@ -46,8 +46,7 @@ commandtolidil = executable( 'commandtolidil', sources,
                              dependencies: deps )
 
 commandtest = executable( 'commandtest', [ 'USBBackend.cpp', 'Test.cpp', 'Pen.cpp',
-                                           'DeskJet3600.cpp', 'TestBackend.cpp',
-                                           'LidilCommand.cpp' ],
+                                           'DeskJet3600.cpp', 'TestBackend.cpp' ],
                           install: false,
                           dependencies: cups,
                           cpp_args: '-DTESTING' )
