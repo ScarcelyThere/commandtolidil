@@ -82,18 +82,18 @@ main (int argc, char* argv[])
     //  assuming any issues with the supplied filename doesn't imply defer
     //  to standard input, but complain.
     std::istream* jobFile = &std::cin;
-    bool shouldCloseFile = false;
+    bool readingFromFile = false;
     if (argc == 7)
     {
         jobFile = new std::ifstream (argv[6]);
         if (!*jobFile)
         {
-            std::cerr << "DEBUG: Could not open file containing commands" << std::endl;
+            std::cerr << "ERROR: Could not open file containing commands" << std::endl;
             delete jobFile;
             return 1;
         }
         else
-            shouldCloseFile = true;
+            readingFromFile = true;
     }
 
     DeskJet3600 printer (deviceUri);
@@ -124,7 +124,7 @@ main (int argc, char* argv[])
         // Any other line is unsupported or a comment. Ignore it.
     }
 
-    if (shouldCloseFile)
+    if (readingFromFile)
         delete jobFile;
 
     return retVal;
