@@ -15,15 +15,15 @@
 
 /* I guess here goes nothing?
  */
-#ifndef _PEN_H
-#define _PEN_H
+#ifndef PEN_H
+#define PEN_H
 
 #include <string>
 
 class Pen
 {
     public:
-        typedef enum : unsigned int
+        typedef enum
         {
             None,
             Black,
@@ -32,7 +32,7 @@ class Pen
             Error = 0x3f
         } Color;
 
-        typedef enum : unsigned int
+        typedef enum
         {
             Invalid,
             Printhead,

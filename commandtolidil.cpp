@@ -20,7 +20,7 @@
 #include "Pen.hpp"
 #include "DeskJet3600.hpp"
 
-void
+static void
 sendCupsLevels (DeskJet3600& printer)
 {
     // I thought about a CUPS object, but why?

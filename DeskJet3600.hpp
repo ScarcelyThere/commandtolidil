@@ -13,8 +13,8 @@
  * commandtolidil. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _DESKJET3600_H
-#define _DESKJET3600_H
+#ifndef DESKJET3600_H
+#define DESKJET3600_H
 
 #include <string>
 #include "Pen.hpp"
@@ -39,8 +39,11 @@ class DeskJet3600
         Pen* nextPen  ();
 
     private:
-        const char cleanCmd      = 8;
-        const char printAlignCmd = 12;
+        enum
+        {
+            cleanCmd      = 8;
+            printAlignCmd = 12
+        };
 
         const size_t minLdlCmdLen = 16;
 

@@ -13,8 +13,8 @@
  * commandtolidil. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _HPMUDBACKEND_H
-#define _HPMUDBACKEND_H
+#ifndef HPMUDBACKEND_H
+#define HPMUDBACKEND_H
 
 #include <string>
 #include "hpmud.h"

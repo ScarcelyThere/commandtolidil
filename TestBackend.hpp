@@ -13,8 +13,8 @@
  * commandtolidil. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _TESTBACKEND_H
-#define _TESTBACKEND_H
+#ifndef TESTBACKEND_H
+#define TESTBACKEND_H
 
 #include <string>
 #include "Backend.hpp"

@@ -13,8 +13,8 @@
  * commandtolidil. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _BACKEND_H
-#define _BACKEND_H
+#ifndef BACKEND_H
+#define BACKEND_H
 
 #include <string>
 

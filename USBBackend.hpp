@@ -13,8 +13,8 @@
  * commandtolidil. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef _USBBACKEND_H
-#define _USBBACKEND_H
+#ifndef USBBACKEND_H
+#define USBBACKEND_H
 
 #include <string>
 #include "Backend.hpp"
