@@ -66,10 +66,6 @@ Pen::Pen (const unsigned int status) : Pen ()
         default:
             // This isn't a marking Pen. We'll know more about
             //  its validity after we get the color.
-            // This seems a little more future-proof than simply
-            //  bailing out here. We may want to add more types
-            //  of Pen so this is more applicable to other HP
-            //  printer models someday.
             isMarking = false;
             break;
     }
