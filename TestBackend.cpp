@@ -14,21 +14,33 @@
  */
 
 #include <iostream>
-#include <chrono>
-#include <random>
+#include <ctime>
+#include <cstdlib>
 #include "TestBackend.hpp"
 
-TestBackend::TestBackend () = default;
-TestBackend::~TestBackend () = default;
+TestBackend::TestBackend ()
+{
+    testCases[0] = "Test;S:0380008000020020002c1481017c2501057;more stuff";
+    testDescriptions[0] = "Simple test from actual printer";
+
+    testCases[1] = "MFG:HP;MDL:Deskjet F4100 series;CMD:LDL,MLC,PML,DYN;CLS:"
+        "PRINTER;1284.4DL:4d,4e,1;S:0380008000020020002c1480006c0000000"
+        ";Z:007,0A20000;";
+    testDescriptions[1] = "More complex test from printer with only black cartridge";
+   
+    testCases[2] = "Test;S:038123812342000A34bc1481017c2501057;more stuff";
+    testDescriptions [2] = "Invalid case to be sure we don't crash";
+}
+
+TestBackend::~TestBackend ()
+{ }
 
 bool
 TestBackend::getDeviceID (std::string& deviceID)
 {
-    std::chrono::time_point rightNow = std::chrono::system_clock::now ();
-    std::ranlux24 randomGenerator (std::chrono::system_clock::to_time_t(rightNow));
-    std::uniform_int_distribution randomNumber (0,2);
-
-    int testCase = randomNumber (randomGenerator);
+    std::srand (std::time (NULL));
+    int testCase = rand () / ((RAND_MAX + 1u) / 3);
+    std::cerr << "DEBUG: testCase is " << testCase << std::endl;
 
     deviceID = testCases[testCase];
     std::cerr << "ERROR: " << testDescriptions[testCase] <<  std::endl;

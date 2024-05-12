@@ -60,9 +60,9 @@ Pen::Pen (const unsigned int status)
     unsigned int kind = (status & 0xC0000000) >> 30;
     switch (kind)
     {
-        case Type::Printhead:
-        case Type::Tank:
-        case Type::Cartridge:
+        case Printhead:
+        case Tank:
+        case Cartridge:
             myMarkerType = "ink";
             break;
         default:
@@ -77,15 +77,15 @@ Pen::Pen (const unsigned int status)
     unsigned int hpType = (status & 0x3F000000) >> 24;
     switch (hpType)
     {
-        case Color::Black:
+        case Black:
             myName = "Black";
             myHex  = "#000000";
             break;
-        case Color::CMY:
+        case CMY:
             myName = "Tri-color";
             myHex  = "#00FFFF#FF00FF#FFFF00";
             break;
-        case Color::KCM:
+        case KCM:
             myName = "Photo";
             myHex  = "#000000#00FFFF#FF00FF";
             break;

@@ -48,7 +48,7 @@ sendCupsLevels (DeskJet3600& printer)
         }
 
         markerTypes  += curPen->markerType ();
-        markerLevels += std::to_string (curPen->getLevel ());
+        markerLevels += curPen->getLevel ();
         markerColors += curPen->toHex ();
         markerNames  += curPen->name ();
     }

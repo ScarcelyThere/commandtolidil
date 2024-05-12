@@ -28,19 +28,8 @@ class TestBackend : public Backend
         bool getDeviceID (std::string&);
 
     private:
-        std::string testCases[3] = {
-            "Test;S:0380008000020020002c1481017c2501057;more stuff",
-            "MFG:HP;MDL:Deskjet F4100 series;CMD:LDL,MLC,PML,DYN;CLS:"
-                "PRINTER;1284.4DL:4d,4e,1;S:0380008000020020002c1480006c0000000"
-                ";Z:007,0A20000;",
-            "Test;S:038123812342000A34bc1481017c2501057;more stuff"
-        };
-
-        std::string testDescriptions[3] = {
-            "Simple test from actual printer",
-            "More complex test from printer with only black cartridge",
-            "Invalid case to be sure we don't crash"
-        };
+        std::string testCases[3];
+        std::string testDescriptions[3];
 };
 
 #endif
