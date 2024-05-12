@@ -18,10 +18,6 @@
 #include <cups/sidechannel.h>
 #include "USBBackend.hpp"
 
-USBBackend::USBBackend () = default;
-
-USBBackend::~USBBackend () = default;
-
 bool
 USBBackend::getDeviceID (std::string& deviceID)
 {

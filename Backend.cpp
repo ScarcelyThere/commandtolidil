@@ -1,4 +1,4 @@
-/* USBBackend.h: Declarations for the USBBackend class
+/* Backend.cpp: A base for Backend objects, which communicate with the printer
  * Copyright (C) 2023 Scarcely There.
  *
  * commandtolidil is free software; you can redistribute it and/or modify it under the
@@ -13,18 +13,12 @@
  * commandtolidil. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef USBBACKEND_H
-#define USBBACKEND_H
-
-#include <string>
 #include "Backend.hpp"
 
-class USBBackend : public Backend
-{
-    public:
-        bool getDeviceID (std::string&) override;
-};
+Backend::Backend ()
+{}
 
-#endif
+Backend::~Backend ()
+{}
 
 // vim: et sw=4

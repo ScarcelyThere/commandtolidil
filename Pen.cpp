@@ -18,19 +18,21 @@
 #include <iostream>
 #include "Pen.hpp"
 
-Pen::Pen () :
-    level        {0},
-    myName       {"Error"},
-    myMarkerType {""},
-    myHex        {""}
-{ }
+Pen::Pen ()
+{
+    level        = 0;
+    myName       = "Error";
+    myMarkerType = "";
+    myHex        = "";
+}
 
-Pen::Pen (Pen& source) :
-    level        {source.getLevel ()},
-    myName       {source.name ()},
-    myMarkerType {source.markerType ()},
-    myHex        {source.toHex ()}
-{ }
+Pen::Pen (Pen& source)
+{
+    level        = source.level;
+    myName       = source.myName;
+    myMarkerType = source.myMarkerType;
+    myHex        = source.myHex;
+}
 
 Pen&
 Pen::operator= (Pen& source)
@@ -46,7 +48,7 @@ Pen::operator= (Pen& source)
     return *this;
 }
 
-Pen::Pen (const unsigned int status) : Pen ()
+Pen::Pen (const unsigned int status)
 {
     // Assume a marking Pen; this is the most common case
     bool isMarking = true;
@@ -66,7 +68,8 @@ Pen::Pen (const unsigned int status) : Pen ()
         default:
             // This isn't a marking Pen. We'll know more about
             //  its validity after we get the color.
-            isMarking = false;
+            myMarkerType = "";
+            isMarking    = false;
             break;
     }
 
@@ -118,7 +121,7 @@ Pen::name ()
     return myName;
 }
 
-Pen::Pen (const unsigned short status) : Pen ()
+Pen::Pen (const unsigned short status)
 {
     // TODO: Implement this so we can support more printers
     (void)status;

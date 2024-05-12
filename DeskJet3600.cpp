@@ -28,17 +28,19 @@
 #  include "HpmudBackend.h"
 #endif
 
-DeskJet3600::DeskJet3600 () :
-    backend   {NULL},
-    numPens   {0},
-    curPen    {0}
-{ }
-
-DeskJet3600::DeskJet3600 (std::string uri) :
-    deviceUri   {uri},
-    numPens     {0},
-    curPen      {0}
+DeskJet3600::DeskJet3600 ()
 {
+    backend = NULL;
+    numPens = 0;
+    curPen  = 0;
+}
+
+DeskJet3600::DeskJet3600 (std::string uri)
+{
+    deviceUri = uri;
+    numPens   = 0;
+    curPen    = 0;
+
     if (deviceUri.length () > 2 &&
         deviceUri.compare (0, 3, "usb") == 0)
     {
@@ -65,12 +67,13 @@ DeskJet3600::DeskJet3600 (std::string uri) :
 #endif
 }
 
-DeskJet3600::DeskJet3600 (DeskJet3600& source) :
-    backend   {source.backend},
-    deviceUri {source.deviceUri},
-    numPens   {source.numPens},
-    curPen    {source.curPen}
+DeskJet3600::DeskJet3600 (DeskJet3600& source)
 {
+    backend   = source.backend;
+    deviceUri = source.deviceUri;
+    numPens   = source.numPens;
+    curPen    = source.curPen;
+
     for (int i = 0 ; i < source.numPens ; i++)
         pens[i] = new Pen(*source.pens[i]);
 }
