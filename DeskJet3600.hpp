@@ -39,13 +39,10 @@ class DeskJet3600
         Pen* nextPen  ();
 
     private:
-        enum
-        {
-            cleanCmd      = 8;
-            printAlignCmd = 12
-        };
+        static const int    cleanCmd      = 8;
+        static const int    printAlignCmd = 12;
 
-        const size_t minLdlCmdLen = 16;
+        static const size_t minLdlCmdLen  = 16;
 
         int parseStatus ();
         void clearPens ();
