@@ -211,15 +211,6 @@ DeskJet3600::clean ()
 void
 DeskJet3600::sendLidilCmd (char command)
 {
-    char* cmd = buildLidilCmd (command);
-    std::cout.write (cmd, minLdlCmdLen);
-    std::cout.flush ();
-    delete cmd;
-}
-
-char*
-DeskJet3600::buildLidilCmd (char command)
-{
     char* cmd = new char[minLdlCmdLen];
 
     // Frame the packet
@@ -236,10 +227,13 @@ DeskJet3600::buildLidilCmd (char command)
     cmd[5] = command;
 
     // Pad the command to the end
-    for (int i = 6 ; i < minLdlCmdLen - 1 ; i++)
+    for (size_t i = 6 ; i < minLdlCmdLen - 1 ; i++)
         cmd[i] = '\0';
 
-    return cmd;
+    std::cout.write (cmd, minLdlCmdLen);
+    std::cout.flush ();
+
+    delete[] cmd;
 }
 
 // vim: et sw=4
