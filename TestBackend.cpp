@@ -18,7 +18,7 @@
 #include <cstdlib>
 #include "TestBackend.hpp"
 
-TestBackend::TestBackend ()
+TestBackend::TestBackend( )
 {
     testCases[0] = "Test;S:0380008000020020002c1481017c2501057;more stuff";
     testDescriptions[0] = "Simple test from actual printer";
@@ -32,14 +32,11 @@ TestBackend::TestBackend ()
     testDescriptions [2] = "Invalid case to be sure we don't crash";
 }
 
-TestBackend::~TestBackend ()
-{ }
-
 bool
 TestBackend::getDeviceID (std::string& deviceID)
 {
-    std::srand (std::time (NULL));
-    int testCase = rand () / ((RAND_MAX + 1u) / 3);
+    std::srand( std::time( NULL ) );
+    int testCase = rand( ) / ( ( RAND_MAX + 1u ) / 3 );
     std::cerr << "DEBUG: testCase is " << testCase << std::endl;
 
     deviceID = testCases[testCase];

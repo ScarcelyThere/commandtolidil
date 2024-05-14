@@ -21,11 +21,11 @@
 class Backend
 {
     public:
-        Backend ();
-        virtual ~Backend ();
+        Backend( );
+        virtual ~Backend( );
 
         // This is all we really need from outside.
-        virtual bool getDeviceID (std::string&) = 0;
+        virtual bool getDeviceID( std::string& ) = 0;
 };
 
 #endif

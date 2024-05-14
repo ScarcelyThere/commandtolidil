@@ -22,7 +22,7 @@
 class USBBackend : public Backend
 {
     public:
-        bool getDeviceID (std::string&);
+        bool getDeviceID( std::string& );
 };
 
 #endif

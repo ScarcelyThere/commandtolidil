@@ -22,10 +22,9 @@
 class TestBackend : public Backend
 {
     public:
-        TestBackend ();
-        ~TestBackend ();
+        TestBackend( );
 
-        bool getDeviceID (std::string&);
+        bool getDeviceID( std::string& );
 
     private:
         std::string testCases[3];

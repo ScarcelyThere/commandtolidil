@@ -19,18 +19,18 @@
 #include <iostream>
 
 int
-main (void)
+main( void )
 {
     // An empty string instantiates a testing backend.
-    DeskJet3600 testPrinter ("");
+    DeskJet3600 testPrinter ( "" );
 
-    testPrinter.update ();
+    testPrinter.update( );
 
-    for (Pen* p = testPrinter.firstPen () ; testPrinter.morePens () ;
-              p = testPrinter.nextPen ())
+    for ( Pen* p = testPrinter.firstPen( ) ; testPrinter.morePens( ) ;
+               p = testPrinter.nextPen( ) )
     {
-        std::cout << "DEBUG: Pen " << p->name () << " has level "
-                  << p->getLevel () << " and RGB " << p->toHex ()
+        std::cout << "DEBUG: Pen " << p->name( ) << " has level "
+                  << p->getLevel( ) << " and RGB " << p->toHex( )
                   << std::endl;
     }
 

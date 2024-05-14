@@ -23,9 +23,10 @@
 class HpmudBackend : public Backend
 {
     public:
-        HpmudBackend ();
-        HpmudBackend (const char*);
-        ~HpmudBackend ();
+        HpmudBackend( );
+        HpmudBackend( const char* );
+
+        ~HpmudBackend( );
 
         bool getDeviceID (std::string&);
 

@@ -15,10 +15,12 @@
 
 #include "Backend.hpp"
 
-Backend::Backend ()
-{}
+Backend::Backend( )
+{
+}
 
-Backend::~Backend ()
-{}
+Backend::~Backend( )
+{
+}
 
 // vim: et sw=4

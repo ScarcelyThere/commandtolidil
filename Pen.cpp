@@ -18,7 +18,7 @@
 #include <iostream>
 #include "Pen.hpp"
 
-Pen::Pen ()
+Pen::Pen( )
 {
     level        = 0;
     myName       = "Error";
@@ -26,7 +26,7 @@ Pen::Pen ()
     myHex        = "";
 }
 
-Pen::Pen (Pen& source)
+Pen::Pen( Pen& source )
 {
     level        = source.level;
     myName       = source.myName;
@@ -35,20 +35,20 @@ Pen::Pen (Pen& source)
 }
 
 Pen&
-Pen::operator= (Pen& source)
+Pen::operator=( Pen& source )
 {
-    if (this != &source)
+    if ( this != &source )
     {
-        level        = source.getLevel ();
-        myName       = source.name ();
-        myHex        = source.toHex ();
-        myMarkerType = source.markerType ();
+        level        = source.level;
+        myName       = source.myName;
+        myHex        = source.myHex;
+        myMarkerType = source.myMarkerType;
     }
 
     return *this;
 }
 
-Pen::Pen (const unsigned int status)
+Pen::Pen( const unsigned int status )
 {
     // Assume a marking Pen; this is the most common case
     bool isMarking = true;
@@ -57,8 +57,8 @@ Pen::Pen (const unsigned int status)
     level = status & 0xFF;
 
     // The type ("kind" in HP parlance) is the top two bits
-    unsigned int kind = (status & 0xC0000000) >> 30;
-    switch (kind)
+    unsigned int kind = ( status & 0xC0000000 ) >> 30;
+    switch ( kind )
     {
         case Printhead:
         case Tank:
@@ -74,8 +74,8 @@ Pen::Pen (const unsigned int status)
     }
 
     // The color ("type" in HP parlance) is the next six bits
-    unsigned int hpType = (status & 0x3F000000) >> 24;
-    switch (hpType)
+    unsigned int hpType = ( status & 0x3F000000 ) >> 24;
+    switch ( hpType )
     {
         case Black:
             myName = "Black";
@@ -92,11 +92,11 @@ Pen::Pen (const unsigned int status)
         default:
             // Any marking Pen without a valid color isn't
             //  valid itself.
-            if (isMarking)
+            if ( isMarking )
             {
                 std::cerr << "DEBUG: Marking pen with no color found!"
                           << std::endl;
-                throw InvalidPenException ();
+                throw InvalidPenException ( );
             }
 
             break;
@@ -104,31 +104,31 @@ Pen::Pen (const unsigned int status)
 }
 
 std::string
-Pen::markerType ()
+Pen::markerType( )
 {
     return myMarkerType;
 }
 
 std::string
-Pen::toHex ()
+Pen::toHex( )
 {
     return myHex;
 }
 
 std::string
-Pen::name ()
+Pen::name( )
 {
     return myName;
 }
 
-Pen::Pen (const unsigned short status)
+Pen::Pen( const unsigned short status )
 {
     // TODO: Implement this so we can support more printers
-    (void)status;
+    ( void )status;
 }
 
 int
-Pen::getLevel ()
+Pen::getLevel( )
 {
     return level;
 }

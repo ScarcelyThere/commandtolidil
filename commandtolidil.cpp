@@ -21,7 +21,7 @@
 #include "DeskJet3600.hpp"
 
 static void
-sendCupsLevels (DeskJet3600& printer)
+sendCupsLevels( DeskJet3600& printer )
 {
     // I thought about a CUPS object, but why?
     std::string markerTypes  = "ATTR:marker-types=";
@@ -30,10 +30,10 @@ sendCupsLevels (DeskJet3600& printer)
     std::string markerNames  = "ATTR:marker-names=";
     
     bool firstPass = true;
-    for (Pen* curPen = printer.firstPen () ; printer.morePens () ;
-              curPen = printer.nextPen ())
+    for ( Pen* curPen = printer.firstPen( ) ; printer.morePens( ) ;
+               curPen = printer.nextPen( ) )
     {
-        if (firstPass)
+        if ( firstPass )
         {
             // We'll need commas after this
             firstPass = false;
@@ -47,10 +47,10 @@ sendCupsLevels (DeskJet3600& printer)
             markerNames  += ",";
         }
 
-        markerTypes  += curPen->markerType ();
+        markerTypes  += curPen->markerType( );
         markerLevels += curPen->getLevel ();
-        markerColors += curPen->toHex ();
-        markerNames  += curPen->name ();
+        markerColors += curPen->toHex( );
+        markerNames  += curPen->name( );
     }
 
     std::cerr << markerTypes  << std::endl;
@@ -60,19 +60,19 @@ sendCupsLevels (DeskJet3600& printer)
 }
 
 int
-main (int argc, char* argv[])
+main( int argc, char* argv[] )
 {
-    signal (SIGPIPE, SIG_IGN);
+    signal( SIGPIPE, SIG_IGN );
 
-    if (argc > 7 || argc < 6)
+    if ( argc > 7 || argc < 6 )
     {
         // No way we're being called from CUPS.
         std::cerr << "ERROR: insufficient or too many arguments" << std::endl;
         return 1;
     }
 
-    char* deviceUri = getenv ("DEVICE_URI");
-    if (!deviceUri)
+    char* deviceUri = getenv( "DEVICE_URI" );
+    if ( ! deviceUri )
     {
         std::cerr << "ERROR: no DEVICE_URI environment variable" << std::endl;
         return 1;
@@ -83,10 +83,10 @@ main (int argc, char* argv[])
     //  to standard input, but complain.
     std::istream* jobFile = &std::cin;
     bool readingFromFile = false;
-    if (argc == 7)
+    if ( argc == 7 )
     {
-        jobFile = new std::ifstream (argv[6]);
-        if (!*jobFile)
+        jobFile = new std::ifstream ( argv[6] );
+        if ( ! *jobFile )
         {
             std::cerr << "ERROR: Could not open file containing commands" << std::endl;
             delete jobFile;
@@ -96,23 +96,23 @@ main (int argc, char* argv[])
             readingFromFile = true;
     }
 
-    DeskJet3600 printer (deviceUri);
+    DeskJet3600 printer ( deviceUri );
 
     std::string jobLine;
     int retVal = 0;
-    while (*jobFile >> jobLine)
+    while ( *jobFile >> jobLine )
     {
         std::cerr << "DEBUG: jobLine is " << jobLine << std::endl;
 
         // "Clean all" instead of "Clean" as specified threw me off a little
-        if (jobLine == "Clean")
+        if( jobLine == "Clean" )
             printer.clean ();
-        else if (jobLine == "PrintSelfTestPage")
+        else if ( jobLine == "PrintSelfTestPage" )
             printer.printAlignmentPage ();
-        else if (jobLine == "ReportLevels")
+        else if ( jobLine == "ReportLevels" )
         {
-            if (printer.update ())
-                sendCupsLevels (printer);
+            if( printer.update( ) )
+                sendCupsLevels( printer );
             else
             {
                 // This is probably bad enough that we just stop.
@@ -124,7 +124,7 @@ main (int argc, char* argv[])
         // Any other line is unsupported or a comment. Ignore it.
     }
 
-    if (readingFromFile)
+    if( readingFromFile )
         delete jobFile;
 
     return retVal;
