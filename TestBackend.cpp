@@ -33,7 +33,7 @@ TestBackend::TestBackend( )
 }
 
 bool
-TestBackend::getDeviceID (std::string& deviceID)
+TestBackend::getDeviceID( std::string& deviceID )
 {
     std::srand( std::time( NULL ) );
     int testCase = rand( ) / ( ( RAND_MAX + 1u ) / 3 );
