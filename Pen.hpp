@@ -42,32 +42,32 @@ class Pen
         } Type;    // There are MANY more types, but we care not (yet)
 
         // Create an uninitialized Pen
-        Pen ();
+        Pen ( );
 
-        Pen (Pen&);
+        Pen ( Pen& );
 
-        Pen& operator= (Pen&);
+        Pen& operator=( Pen& );
  
         // TODO: Implement this
         // Create a Pen from a two-byte S-status
-        Pen (const unsigned short status);
+        Pen ( const unsigned short status );
  
         // Create a Pen from a Rev. 3 S-status
-        Pen (const unsigned int status);
+        Pen ( const unsigned int status );
 
         // Accessors
-        int getLevel ();
+        int getLevel( );
 
         // Returns a hexadecimal color code for the Pen
         // TODO: This is pretty CUPS-y. Does this properly belong here?
-        std::string toHex ();
+        std::string toHex( );
 
         // The pen's name (a human-readable identifier)
         // TODO: i18n this would be nice.
-        std::string name ();
+        std::string name( );
 
         // The pen's type ("ink", for example)
-        std::string markerType ();
+        std::string markerType( );
 
     private:
         int level;
