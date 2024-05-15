@@ -24,19 +24,23 @@ HpmudBackend::HpmudBackend( const char* deviceUri )
     deviceOpen = false;
 
     HPMUD_RESULT result;
-    uri = std::string ( deviceUri );
 
-    result = hpmud_query_model( uri.data( ), &modelAttrs );
+    // I do not know if hpmud_query_model alters the URI, so we keep
+    //  our own copy of the URI.
+    for ( int i = 0 ; i < uriLength && deviceUri[i] != '\0' ; i++ )
+        uri[i] = deviceUri[i];
+
+    result = hpmud_query_model( uri, &modelAttrs );
     validUri = ( result == HPMUD_R_OK );
 }
 
 HpmudBackend::~HpmudBackend( )
 {
-    if( deviceOpen )
+    if ( deviceOpen )
     {
         // Just try anyway.
         std::cerr << "DEBUG: HPMUD device was still open" << std::endl;
-        ( void )hpmud_close_device (device);
+        ( void )hpmud_close_device( device );
     }
 }
 
@@ -51,8 +55,7 @@ HpmudBackend::getDeviceID( std::string& deviceID )
         return false;
 
     HPMUD_RESULT result;
-    result = hpmud_open_device( uri.data( ),
-            modelAttrs.prt_mode,
+    result = hpmud_open_device( uri, modelAttrs.prt_mode,
             &device );
 
     if ( result != HPMUD_R_OK )

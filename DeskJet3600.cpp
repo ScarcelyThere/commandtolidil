@@ -25,40 +25,40 @@
 #endif
 
 #ifdef BUILD_HPMUD
-#  include "HpmudBackend.h"
+#  include "HpmudBackend.hpp"
 #endif
 
-DeskJet3600::DeskJet3600 ()
+DeskJet3600::DeskJet3600( )
 {
     backend = NULL;
     numPens = 0;
     curPen  = 0;
 }
 
-DeskJet3600::DeskJet3600 (std::string uri)
+DeskJet3600::DeskJet3600( std::string uri )
 {
     deviceUri = uri;
     numPens   = 0;
     curPen    = 0;
 
-    if (deviceUri.length () > 2 &&
-        deviceUri.compare (0, 3, "usb") == 0)
+    if ( deviceUri.length( ) > 2 &&
+         deviceUri.compare( 0, 3, "usb" ) == 0 )
     {
-        backend = new USBBackend ();
+        backend = new USBBackend ( );
         std::cerr << "DEBUG: USB backend selected" << std::endl;
     }
 #ifdef BUILD_HPMUD
-    else if (deviceUri.length () > 1 &&
-        deviceUri.compare (0, 2, "hp") == 0)
+    else if ( deviceUri.length( ) > 1 &&
+              deviceUri.compare( 0, 2, "hp" ) == 0 )
     {
-        backend = new HpmudBackend (uri.data ());
+        backend = new HpmudBackend( uri.data( ) );
         std::cerr << "DEBUG: Selected HP backend" << std::endl;
     }
 #endif
 #ifdef TESTING
     else
     {
-        backend = new TestBackend ();
+        backend = new TestBackend( );
         std::cerr << "DEBUG: Using test backend" << std::endl;
     }
 #else
@@ -67,29 +67,29 @@ DeskJet3600::DeskJet3600 (std::string uri)
 #endif
 }
 
-DeskJet3600::DeskJet3600 (DeskJet3600& source)
+DeskJet3600::DeskJet3600( DeskJet3600& source )
 {
     backend   = source.backend;
     deviceUri = source.deviceUri;
     numPens   = source.numPens;
     curPen    = source.curPen;
 
-    for (unsigned int i = 0 ; i < source.numPens ; i++)
-        pens[i] = new Pen(*source.pens[i]);
+    for ( unsigned int i = 0 ; i < source.numPens ; i++ )
+        pens[i] = new Pen( *source.pens[i] );
 }
 
-DeskJet3600::~DeskJet3600 ()
+DeskJet3600::~DeskJet3600( )
 {
-    if (backend)
+    if ( backend )
         delete backend;
 
-    clearPens ();
+    clearPens( );
 }
 
 void
-DeskJet3600::clearPens ()
+DeskJet3600::clearPens( )
 {
-    for (unsigned int i = 0 ; i < numPens ; i++ )
+    for ( unsigned int i = 0 ; i < numPens ; i++ )
         delete pens[i];
 
     numPens = 0;
@@ -97,41 +97,41 @@ DeskJet3600::clearPens ()
 }
 
 Pen*
-DeskJet3600::firstPen ()
+DeskJet3600::firstPen( )
 {
     curPen = 0;
-    return nextPen ();
+    return nextPen( );
 }
 
 bool
-DeskJet3600::morePens ()
+DeskJet3600::morePens( )
 {
-    return (curPen <= numPens);
+    return ( curPen <= numPens );
 }
 
 Pen*
-DeskJet3600::nextPen ()
+DeskJet3600::nextPen( )
 {
     return pens[curPen++];
 }
 
 int
-DeskJet3600::update ()
+DeskJet3600::update( )
 {
-    if (backend == NULL)
+    if ( backend == NULL )
         return 0;
 
-    if (backend->getDeviceID (deviceID))
+    if ( backend->getDeviceID( deviceID ) )
     {
-        clearPens ();
-        return parseStatus ();
+        clearPens( );
+        return parseStatus( );
     }
     else
         return 0;
 }
 
 int
-DeskJet3600::parseStatus ()
+DeskJet3600::parseStatus( )
 {
     // Both offsets are in hexadecimal digits
     const int  penDataOffset = 16,
@@ -140,21 +140,21 @@ DeskJet3600::parseStatus ()
     size_t offset;
 
     // Where's the relevant hex status string?
-    offset = deviceID.find (";S:");
-    if (offset == deviceID.npos)
+    offset = deviceID.find( ";S:" );
+    if ( offset == deviceID.npos )
         return 0;
 
     offset += 3;
-    if (deviceID.length () < offset + penDataOffset)
+    if ( deviceID.length( ) < offset + penDataOffset )
         return 0;
 
     unsigned int revision;
-    std::stringstream (deviceID.substr (offset, 2)) >> std::hex
+    std::stringstream ( deviceID.substr( offset, 2 ) ) >> std::hex
             >> revision;
     offset += 2;
 
     // DeskJet 3600 is revision 3, so anything else won't work here
-    if (revision != 3)
+    if ( revision != 3 )
         return 0;
 
     unsigned int penCount,
@@ -165,29 +165,29 @@ DeskJet3600::parseStatus ()
 
     // First nybble is the number of pens, which we obtain and then
     //  skip over
-    std::stringstream (deviceID.substr (offset, 1)) >> std::hex
+    std::stringstream ( deviceID.substr( offset, 1 ) ) >> std::hex
             >> penCount;
     offset++;
 
     // DeskJet 3600 has two cartridge slots. Any more and it's not that
     //  printer model.
-    if (penCount > 2)
+    if ( penCount > 2 )
         return 0;
 
     Pen* pen;
-    for (unsigned int i = 0 ; i < penCount ; i++)
+    for ( unsigned int i = 0 ; i < penCount ; i++) 
     {
-        std::stringstream (deviceID.substr (offset, penDataLength))
+        std::stringstream ( deviceID.substr( offset, penDataLength ) )
             >> std::hex >> curRawPen;
 
         offset += penDataLength;
 
         try
         {
-            pen = new Pen (curRawPen);
+            pen = new Pen ( curRawPen );
             pens[numPens++] = pen;
         }
-        catch (const InvalidPenException &e)
+        catch ( const InvalidPenException &e )
         {
             std::cout << "DEBUG: Invalid Pen discovered" << std::endl;
         }
@@ -197,19 +197,19 @@ DeskJet3600::parseStatus ()
 }
 
 void
-DeskJet3600::printAlignmentPage ()
+DeskJet3600::printAlignmentPage( )
 {
-    sendLidilCmd (printAlignCmd);
+    sendLidilCmd( printAlignCmd );
 }
 
 void
-DeskJet3600::clean ()
+DeskJet3600::clean( )
 {
-    sendLidilCmd (cleanCmd);
+    sendLidilCmd( cleanCmd );
 }
 
 void
-DeskJet3600::sendLidilCmd (char command)
+DeskJet3600::sendLidilCmd( char command )
 {
     char* cmd = new char[minLdlCmdLen];
 
@@ -227,13 +227,13 @@ DeskJet3600::sendLidilCmd (char command)
     cmd[5] = command;
 
     // Pad the command to the end
-    for (size_t i = 6 ; i < minLdlCmdLen - 1 ; i++)
+    for ( size_t i = 6 ; i < minLdlCmdLen - 1 ; i++ )
         cmd[i] = '\0';
 
-    std::cout.write (cmd, minLdlCmdLen);
-    std::cout.flush ();
+    std::cout.write( cmd, minLdlCmdLen );
+    std::cout.flush( );
 
-    delete[] cmd;
+    delete [] cmd;
 }
 
 // vim: et sw=4
