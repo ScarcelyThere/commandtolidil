@@ -23,20 +23,20 @@
 class DeskJet3600
 {
     public:
-        DeskJet3600 ();
-        DeskJet3600 (std::string uri);
-        DeskJet3600 (DeskJet3600&);
+        DeskJet3600 ( );
+        DeskJet3600 ( std::string uri );
+        DeskJet3600 ( DeskJet3600& );
 
-        ~DeskJet3600 ();
+        ~DeskJet3600 ( );
 
-        void printAlignmentPage ();
-        void clean ();
+        void printAlignmentPage( );
+        void clean( );
 
-        int update ();
+        int update( );
 
-        Pen* firstPen ();
-        bool morePens ();
-        Pen* nextPen  ();
+        Pen* firstPen( );
+        bool morePens( );
+        Pen* nextPen ( );
 
     private:
         static const int    cleanCmd      = 8;
@@ -44,8 +44,8 @@ class DeskJet3600
 
         static const size_t minLdlCmdLen  = 16;
 
-        int parseStatus ();
-        void clearPens ();
+        int parseStatus( );
+        void clearPens( );
 
         Backend* backend;
 
@@ -56,8 +56,8 @@ class DeskJet3600
         unsigned int numPens;
         unsigned int curPen;
 
-        void  sendLidilCmd (char);
-        char* buildLidilCmd (char);
+        void  sendLidilCmd( char );
+        char* buildLidilCmd( char );
 };
 
 #endif
