@@ -27,7 +27,6 @@ sources = [ 'Pen.cpp', 'DeskJet3600.cpp', 'Backend.cpp',
             'commandtolidil.cpp', 'USBBackend.cpp' ]
 
 args     = [ ]
-linkargs = [ ]
 
 if hpmud.found()
   message( 'Custom HPMUD found, enabling it (thanks for using hplip_meson!)' )
@@ -41,7 +40,6 @@ endif
 commandtolidil = executable( 'commandtolidil', sources,
                              install: true,
                              cpp_args: args,
-                             link_args: linkargs,
                              install_dir: filter_install_dir,
                              dependencies: deps )
 
