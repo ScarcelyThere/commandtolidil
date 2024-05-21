@@ -82,7 +82,7 @@ main( int argc, char* argv[] )
     //  assuming any issues with the supplied filename doesn't imply defer
     //  to standard input, but complain.
     std::istream* jobFile = &std::cin;
-    bool readingFromFile = false;
+    bool readingFromCmdFile = false;
     if ( argc == 7 )
     {
         jobFile = new std::ifstream ( argv[6] );
@@ -93,7 +93,7 @@ main( int argc, char* argv[] )
             return 1;
         }
         else
-            readingFromFile = true;
+            readingFromCmdFile = true;
     }
 
     DeskJet3600 printer ( deviceUri );
@@ -105,7 +105,7 @@ main( int argc, char* argv[] )
         std::cerr << "DEBUG: jobLine is " << jobLine << std::endl;
 
         // "Clean all" instead of "Clean" as specified threw me off a little
-        if( jobLine == "Clean" )
+        if ( jobLine == "Clean" )
             printer.clean ();
         else if ( jobLine == "PrintSelfTestPage" )
             printer.printAlignmentPage ();
@@ -124,7 +124,7 @@ main( int argc, char* argv[] )
         // Any other line is unsupported or a comment. Ignore it.
     }
 
-    if( readingFromFile )
+    if( readingFromCmdFile )
         delete jobFile;
 
     return retVal;
