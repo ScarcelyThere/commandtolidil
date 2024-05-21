@@ -20,7 +20,7 @@
 
 TestBackend::TestBackend( )
 {
-    testCases[0] = "Test;S:0380008000020020002c1481017c2501057;more stuff";
+    testCases[0]        = "Test;S:0380008000020020002c1481017c2501057;more stuff";
     testDescriptions[0] = "Simple test from actual printer";
 
     testCases[1] = "MFG:HP;MDL:Deskjet F4100 series;CMD:LDL,MLC,PML,DYN;CLS:"
@@ -28,15 +28,15 @@ TestBackend::TestBackend( )
         ";Z:007,0A20000;";
     testDescriptions[1] = "More complex test from printer with only black cartridge";
    
-    testCases[2] = "Test;S:038123812342000A34bc1481017c2501057;more stuff";
-    testDescriptions [2] = "Invalid case to be sure we don't crash";
+    testCases[2]        = "Test;S:038123812342000A34bc1481017c2501057;more stuff";
+    testDescriptions[2] = "Invalid case to be sure we don't crash";
 }
 
 bool
 TestBackend::getDeviceID( std::string& deviceID )
 {
     std::srand( std::time( NULL ) );
-    int testCase = rand( ) / ( ( RAND_MAX + 1u ) / 3 );
+    int testCase = std::rand( ) / ( ( RAND_MAX + 1u ) / 3 );
     std::cerr << "DEBUG: testCase is " << testCase << std::endl;
 
     deviceID = testCases[testCase];
