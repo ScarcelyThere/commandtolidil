@@ -150,7 +150,7 @@ DeskJet3600::parseStatus( )
 
     unsigned int revision;
     std::stringstream ( deviceID.substr( offset, 2 ) ) >> std::hex
-            >> revision;
+        >> revision;
     offset += 2;
 
     // DeskJet 3600 is revision 3, so anything else won't work here
@@ -165,19 +165,21 @@ DeskJet3600::parseStatus( )
 
     // First nybble is the number of pens, which we obtain and then
     //  skip over
-    std::stringstream ( deviceID.substr( offset, 1 ) ) >> std::hex
-            >> penCount;
-    offset++;
+    std::stringstream ( deviceID.substr( offset++, 1 ) ) >> std::hex
+        >> penCount;
 
     // DeskJet 3600 has two cartridge slots. Any more and it's not that
     //  printer model.
     if ( penCount > 2 )
+    {
+        std::cerr << "DEBUG: incorrect Pen count" << std::endl;
         return 0;
+    }
 
     Pen* pen;
     for ( unsigned int i = 0 ; i < penCount ; i++) 
     {
-        std::stringstream ( deviceID.substr( offset, penDataLength ) )
+        std::stringstream( deviceID.substr( offset, penDataLength ) )
             >> std::hex >> curRawPen;
 
         offset += penDataLength;
@@ -199,14 +201,14 @@ DeskJet3600::parseStatus( )
 void
 DeskJet3600::printAlignmentPage( )
 {
-    sendLidilCmd( resetCmd );
+    sendLidilCmd( resetType );
     sendLidilCmd( printAlignCmd );
 }
 
 void
 DeskJet3600::clean( )
 {
-    sendLidilCmd( resetCmd );
+    sendLidilCmd( resetType );
     sendLidilCmd( cleanCmd );
 }
 
