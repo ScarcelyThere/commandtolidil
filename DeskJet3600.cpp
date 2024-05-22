@@ -171,10 +171,7 @@ DeskJet3600::parseStatus( )
     // DeskJet 3600 has two cartridge slots. Any more and it's not that
     //  printer model.
     if ( penCount > 2 )
-    {
-        std::cerr << "DEBUG: incorrect Pen count" << std::endl;
         return 0;
-    }
 
     Pen* pen;
     for ( unsigned int i = 0 ; i < penCount ; i++) 
