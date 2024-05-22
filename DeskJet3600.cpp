@@ -199,12 +199,14 @@ DeskJet3600::parseStatus( )
 void
 DeskJet3600::printAlignmentPage( )
 {
+    sendLidilCmd( resetCmd );
     sendLidilCmd( printAlignCmd );
 }
 
 void
 DeskJet3600::clean( )
 {
+    sendLidilCmd( resetCmd );
     sendLidilCmd( cleanCmd );
 }
 
@@ -220,15 +222,19 @@ DeskJet3600::sendLidilCmd( char command )
     cmd[1] = '\0';
     cmd[2] = minLdlCmdLen;
 
-    // Bytes four and five are zero for a command
-    cmd[3] = cmd[4] = '\0';
+    // Byte four is zero?
+    cmd[3] = '\0';
 
-    // Sixth byte is the command
-    cmd[5] = command;
+    // Fifth byte is the command
+    cmd[4] = command;
 
-    // Pad the command to the end
-    for ( size_t i = 6 ; i < minLdlCmdLen - 1 ; i++ )
+    // Bytes seven through ten are still a mystery to me.
+    for ( size_t i = 5 ; i < 10 ; i++ )
         cmd[i] = '\0';
+
+    // Pad the command to the end.
+    for ( size_t i = 10 ; i < minLdlCmdLen - 1 ; i++ )
+        cmd[i] = padByte;
 
     std::cout.write( cmd, minLdlCmdLen );
     std::cout.flush( );

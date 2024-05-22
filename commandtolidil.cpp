@@ -15,7 +15,8 @@
 
 #include <iostream>
 #include <fstream>
-#include <cstring>
+#include <sstream>
+#include <string>
 #include <signal.h>
 #include "Pen.hpp"
 #include "DeskJet3600.hpp"
@@ -28,7 +29,7 @@ sendCupsLevels( DeskJet3600& printer )
     std::string markerLevels = "ATTR:marker-levels=";
     std::string markerColors = "ATTR:marker-colors=";
     std::string markerNames  = "ATTR:marker-names=";
-    
+
     bool firstPass = true;
     for ( Pen* curPen = printer.firstPen( ) ; printer.areMorePens( ) ;
                curPen = printer.nextPen( ) )
@@ -48,9 +49,12 @@ sendCupsLevels( DeskJet3600& printer )
         }
 
         markerTypes  += curPen->markerType( );
-        markerLevels += curPen->getLevel ();
+        markerLevels += curPen->getLevel( );
         markerColors += curPen->toHex( );
         markerNames  += curPen->name( );
+
+        std::cerr << "DEBUG: markerLevels is now " << markerLevels
+                  << std::endl;
     }
 
     std::cerr << markerTypes  << std::endl;
@@ -106,12 +110,15 @@ main( int argc, char* argv[] )
 
         // "Clean all" instead of "Clean" as specified threw me off a little
         if ( jobLine == "Clean" )
-            printer.clean ();
+            printer.clean( );
         else if ( jobLine == "PrintSelfTestPage" )
-            printer.printAlignmentPage ();
+            printer.printAlignmentPage( );
+        // We should also support this command.
+        else if ( jobLine == "PrintAlignmentPage" )
+            printer.printAlignmentPage( );
         else if ( jobLine == "ReportLevels" )
         {
-            if( printer.update( ) )
+            if ( printer.update( ) )
                 sendCupsLevels( printer );
             else
             {
@@ -124,7 +131,7 @@ main( int argc, char* argv[] )
         // Any other line is unsupported or a comment. Ignore it.
     }
 
-    if( readingFromCmdFile )
+    if ( readingFromCmdFile )
         delete jobFile;
 
     return retVal;

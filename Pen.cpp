@@ -16,6 +16,7 @@
 
 // iostream is only needed for debugging statements here.
 #include <iostream>
+#include <sstream>
 #include "Pen.hpp"
 
 Pen::Pen( )
@@ -127,10 +128,12 @@ Pen::Pen( const unsigned short status )
     ( void )status;
 }
 
-int
+std::string
 Pen::getLevel( )
 {
-    return level;
+    std::stringstream levelConverter;
+    levelConverter << level;
+    return levelConverter.str( );
 }
 
 // vim: et sw=4

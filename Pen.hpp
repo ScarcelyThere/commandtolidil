@@ -56,7 +56,7 @@ class Pen
         Pen ( const unsigned int status );
 
         // Accessors
-        int getLevel( );
+        std::string getLevel( );
 
         // Returns a hexadecimal color code for the Pen
         // TODO: This is pretty CUPS-y. Does this properly belong here?

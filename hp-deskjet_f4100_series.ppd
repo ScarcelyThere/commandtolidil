@@ -42,7 +42,7 @@
 *cupsManualCopies: True
 *cupsFilter: "application/vnd.cups-raster 0 hpcups"
 *% Additional support for commandtolidil
-*cupsCommands: "Clean PrintSelfTestPage ReportLevels"
+*cupsCommands: "Clean PrintAlignmentPage PrintSelfTestPage ReportLevels"
 *cupsFilter: "application/vnd.cups-command 0 commandtolidil"
 *cupsLanguages: "en"
 *UIConstraints: *MediaType Glossy *OutputMode DraftRGB
