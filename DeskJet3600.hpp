@@ -35,7 +35,7 @@ class DeskJet3600
         int update( );
 
         Pen* firstPen( );
-        bool morePens( );
+        bool areMorePens( );
         Pen* nextPen ( );
 
     private:

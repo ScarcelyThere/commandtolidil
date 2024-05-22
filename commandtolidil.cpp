@@ -30,7 +30,7 @@ sendCupsLevels( DeskJet3600& printer )
     std::string markerNames  = "ATTR:marker-names=";
     
     bool firstPass = true;
-    for ( Pen* curPen = printer.firstPen( ) ; printer.morePens( ) ;
+    for ( Pen* curPen = printer.firstPen( ) ; printer.areMorePens( ) ;
                curPen = printer.nextPen( ) )
     {
         if ( firstPass )

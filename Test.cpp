@@ -26,7 +26,7 @@ main( void )
 
     testPrinter.update( );
 
-    for ( Pen* p = testPrinter.firstPen( ) ; testPrinter.morePens( ) ;
+    for ( Pen* p = testPrinter.firstPen( ) ; testPrinter.areMorePens( ) ;
                p = testPrinter.nextPen( ) )
     {
         std::cout << "DEBUG: Pen " << p->name( ) << " has level "

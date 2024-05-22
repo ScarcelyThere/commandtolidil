@@ -104,7 +104,7 @@ DeskJet3600::firstPen( )
 }
 
 bool
-DeskJet3600::morePens( )
+DeskJet3600::areMorePens( )
 {
     return ( curPen <= numPens );
 }
