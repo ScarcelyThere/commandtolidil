@@ -109,14 +109,10 @@ code.
 
 To Do
 -----
-✓ Actual test cases
-
-We have some tests for DeskJet status parsing and cartridge data, but no other tests.
-
-▢ Commit to the C++ string library. We use it much of the time, except in parts of
-the Pen class.
-
-▢ It could be fun if we could determine whether or not the cartridge
+- More test cases. We have tests for DeskJet status parsing and
+cartridge data, but no other tests. Testing cleaning and alignment
+page printing is being done on an actual DeskJet F4180. This is more
+difficult to automate.
+- It could be fun if we could determine whether or not the cartridge
 was genuine.
-
-▢ Somehow integrate this with hplip-printer-app, as that's the future
+- Somehow integrate this with hplip-printer-app, as that's the future
