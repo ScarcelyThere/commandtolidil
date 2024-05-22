@@ -43,9 +43,11 @@ commandtolidil = executable( 'commandtolidil', sources,
                              install_dir: filter_install_dir,
                              dependencies: deps )
 
-commandtest = executable( 'commandtest', [ 'USBBackend.cpp', 'Test.cpp', 'Pen.cpp',
-                                           'DeskJet3600.cpp', 'TestBackend.cpp',
-                                           'Backend.cpp' ],
-                          install: false,
-                          dependencies: cups,
-                          cpp_args: '-DTESTING' )
+if get_option( 'tests' ).enabled( )
+  commandtest = executable( 'commandtest', [ 'USBBackend.cpp', 'Test.cpp', 'Pen.cpp',
+                                             'DeskJet3600.cpp', 'TestBackend.cpp',
+                                             'Backend.cpp' ],
+                            install: false,
+                            dependencies: cups,
+                            cpp_args: '-DTESTING' )
+endif
