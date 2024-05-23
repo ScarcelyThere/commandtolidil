@@ -200,7 +200,13 @@ DeskJet3600::printAlignmentPage( )
 {
     char packet[minLdlPktLen];
 
-    buildLidilHeader( commandType, packet );
+    buildLidilHeader( commandType, printBuiltinCmd, minLdlPktLen, packet );
+    // The Print Internal Page operation is 17.
+    packet[10] = 17;
+    finishLidilPacket( minLdlPktLen, 11, packet );
+
+    std::cerr.write( packet, minLdlPktLen );
+    std::cerr.flush( );
 }
 
 void
@@ -208,36 +214,48 @@ DeskJet3600::clean( )
 {
     char packet[minLdlPktLen];
 
-    buildLidilHeader( resetType, packet );
+    buildLidilHeader( commandType, handlePenCmd, minLdlPktLen, packet );
+    // Cleaning level 1 is operation 2.
+    packet[10] = 2;
+    finishLidilPacket( minLdlPktLen, 11, packet );
+
+    std::cerr.write( packet, minLdlPktLen );
+    std::cerr.flush( );
 }
 
 void
-DeskJet3600::buildLidilHeader( int type, char* buffer )
+DeskJet3600::buildLidilHeader( int    type,
+                               int    command,
+                               size_t packetSize,
+                               char*  buffer )
 {
     // Frame the packet
     buffer[0] = '$';
 
     // Next two bytes are the size
-    buffer[1] = '\0';
-    buffer[2] = minLdlPktLen;
+    buffer[1] = ( packetSize & 0xFF00 ) >> 8;
+    buffer[2] = packetSize & 0xFF;
 
     // Byte four is zero?
     buffer[3] = '\0';
 
     // Fifth byte is the packet type
-    buffer[4] = type;
+    buffer[4] = type & 0xFF;
 
-    // Bytes seven through ten are still a mystery to me.
-    for ( size_t i = 5 ; i < 10 ; i++ )
+    // Sixth byte is the command (or zero for none)
+    buffer[5] = command & 0xFF;
+
+    // Bytes seven-eight and nine-ten are still a mystery to me.
+    for ( size_t i = 6 ; i < 10 ; i++ )
         buffer[i] = '\0';
 }
 
 void
 DeskJet3600::finishLidilPacket( size_t packetLength,
-                                int offset,
-                                char* buffer )
+                                int    offset,
+                                char*  buffer )
 {
-    for ( int i = offset ; i < packetLength - 2 ; i++ )
+    for ( unsigned int i = offset ; i < packetLength - 2 ; i++ )
         buffer[i] = padByte;
 
     buffer[packetLength - 1] = '$';
