@@ -232,4 +232,15 @@ DeskJet3600::buildLidilHeader( int type, char* buffer )
         buffer[i] = '\0';
 }
 
+void
+DeskJet3600::finishLidilPacket( size_t packetLength,
+                                int offset,
+                                char* buffer )
+{
+    for ( int i = offset ; i < packetLength - 2 ; i++ )
+        buffer[i] = padByte;
+
+    buffer[packetLength - 1] = '$';
+}
+
 // vim: et sw=4
