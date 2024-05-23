@@ -15,53 +15,11 @@
 
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include <string>
 #include <signal.h>
 #include "Pen.hpp"
 #include "DeskJet3600.hpp"
-
-static void
-sendCupsLevels( DeskJet3600& printer )
-{
-    // I thought about a CUPS object, but why?
-    std::string markerTypes  = "ATTR:marker-types=";
-    std::string markerLevels = "ATTR:marker-levels=";
-    std::string markerColors = "ATTR:marker-colors=";
-    std::string markerNames  = "ATTR:marker-names=";
-
-    bool firstPass = true;
-    for ( Pen* curPen = printer.firstPen( ) ; printer.areMorePens( ) ;
-               curPen = printer.nextPen( ) )
-    {
-        if ( firstPass )
-        {
-            // We'll need commas after this
-            firstPass = false;
-        }
-        else
-        {
-            // commas needed
-            markerTypes  += ",";
-            markerLevels += ",";
-            markerColors += ",";
-            markerNames  += ",";
-        }
-
-        markerTypes  += curPen->markerType( );
-        markerLevels += curPen->getLevel( );
-        markerColors += curPen->toHex( );
-        markerNames  += curPen->name( );
-
-        std::cerr << "DEBUG: markerLevels is now " << markerLevels
-                  << std::endl;
-    }
-
-    std::cerr << markerTypes  << std::endl;
-    std::cerr << markerLevels << std::endl;
-    std::cerr << markerColors << std::endl;
-    std::cerr << markerNames  << std::endl;
-}
+#include "CUPS_Utilities.hpp"
 
 int
 main( int argc, char* argv[] )

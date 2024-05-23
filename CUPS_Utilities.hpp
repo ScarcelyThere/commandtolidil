@@ -1,5 +1,5 @@
-/* Test.cpp: Tests DeskJet3600 and Pen parsing ability
- * Copyright (C) 2023 Scarcely There.
+/* CUPS_Utilities.hpp: common CUPS stuff
+ *  Copyright (C) 2023 Scarcely There.
  *
  * commandtolidil is free software; you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
@@ -13,24 +13,8 @@
  * commandtolidil. If not, see <https://www.gnu.org/licenses/>.
  */
 
-// A simple test harness for the Pen class.
-#include "Pen.hpp"
 #include "DeskJet3600.hpp"
-#include "CUPS_Utilities.hpp"
-#include <iostream>
 
-int
-main( void )
-{
-    // An empty string instantiates a testing backend.
-    DeskJet3600 testPrinter ( "" );
-
-    if ( testPrinter.update( ) )
-        sendCupsLevels( testPrinter );
-    else
-        std::cerr << "DEBUG: testPrinter.update( ) failed!" << std::endl;
-
-    return 0;
-}
+void sendCupsLevels( DeskJet3600& );
 
 // vim: et sw=4
