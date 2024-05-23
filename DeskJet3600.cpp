@@ -201,8 +201,7 @@ DeskJet3600::printAlignmentPage( )
     char packet[minLdlPktLen];
 
     buildLidilHeader( commandType, printBuiltinCmd, minLdlPktLen, packet );
-    // The Print Internal Page operation is 17.
-    packet[10] = 17;
+    packet[10] = printInternalPgOp;
     finishLidilPacket( minLdlPktLen, 11, packet );
 
     std::cerr.write( packet, minLdlPktLen );
@@ -215,8 +214,7 @@ DeskJet3600::clean( )
     char packet[minLdlPktLen];
 
     buildLidilHeader( commandType, handlePenCmd, minLdlPktLen, packet );
-    // Cleaning level 1 is operation 2.
-    packet[10] = 2;
+    packet[10] = cleanLvl1Op;
     finishLidilPacket( minLdlPktLen, 11, packet );
 
     std::cerr.write( packet, minLdlPktLen );

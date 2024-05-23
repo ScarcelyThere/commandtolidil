@@ -39,14 +39,17 @@ class DeskJet3600
         Pen* nextPen ( );
 
     private:
-        static const int    commandType     = 0;
-        static const int    resetType       = 6;
+        static const int    commandType = 0;
+        static const int    resetType   = 6;
 
-        static const int    handlePenCmd    = 8;
-        static const int    printBuiltinCmd = 12;
+        static const int    handlePenCmd = 8;
+        static const int    cleanLvl1Op  = 2;
 
-        static const int    headerLen       = 10;
-        static const char   padByte         = 0xFF;
+        static const int    printBuiltinCmd   = 12;
+        static const int    printInternalPgOp = 17;
+
+        static const int    headerLen = 10;
+        static const char   padByte   = 0xFF;
 
         static const size_t minLdlPktLen  = 16;
 
