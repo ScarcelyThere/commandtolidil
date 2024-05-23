@@ -33,7 +33,7 @@ is included.
 
 Obligatory Warning
 ------------------
-This software is barely alpha-quality. There's a test case, but it's
+This software is barely beta-quality. There's a test case, but it's
 not comprehensive. My printer isn't often connected anymore. Upgrading
 your printer should be considered a serious alternative to using this
 software. Besides, who likes relocating one's laptop to within USB
@@ -80,11 +80,12 @@ this yet, but I hope to soon!
 Using It
 --------
 This command filter implements the commands `Clean all`, `PrintSelfTestPage`,
-and `ReportLevels`, most of which you can issue from the Web-based interface
-or a tool like `system-config-printer`.
+`PrintAlignmentPage`, and `ReportLevels`, most of which you can issue from the
+Web-based interface or a tool like `system-config-printer`.
 
 `PrintSelfTestPage` prints the self-alignment scanning sheet one usually
 gets when installing new ink cartridges and turning the printer on.
+`PrintAlignmentPage` does the same thing.
 
 `Clean all` performs a level one cleaning.
 
