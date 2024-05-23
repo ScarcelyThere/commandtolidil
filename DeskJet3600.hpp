@@ -65,10 +65,10 @@ class DeskJet3600
         unsigned int numPens;
         unsigned int curPen;
 
-        void buildLidilHeader( int,      // Packet type
-                               int,      // Command
-                               size_t,   // Packet size
-                               char* );  // Buffer
+        void buildLidilHeader( size_t,  // Packet size
+                               int,     // Packet type
+                               int,     // Packet command
+                               char* ); // Buffer
 
         void finishLidilPacket( size_t,  // Packet size
                                 int,     // Offset to begin padding

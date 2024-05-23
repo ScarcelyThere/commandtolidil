@@ -222,9 +222,9 @@ DeskJet3600::clean( )
 }
 
 void
-DeskJet3600::buildLidilHeader( int    type,
+DeskJet3600::buildLidilHeader( size_t packetSize,
+                               int    type,
                                int    command,
-                               size_t packetSize,
                                char*  buffer )
 {
     // Frame the packet

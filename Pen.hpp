@@ -52,7 +52,7 @@ class Pen
         // Create a Pen from a two-byte S-status
         Pen ( const unsigned short status );
  
-        // Create a Pen from a Rev. 3 S-status
+        // Create a Pen from a Rev. 3 S-status, which is 4 bytes
         Pen ( const unsigned int status );
 
         // Accessors
