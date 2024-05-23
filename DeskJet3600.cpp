@@ -198,47 +198,38 @@ DeskJet3600::parseStatus( )
 void
 DeskJet3600::printAlignmentPage( )
 {
-    sendLidilCmd( resetType );
-    sendLidilCmd( printAlignCmd );
+    char packet[minLdlPktLen];
+
+    buildLidilHeader( commandType, packet );
 }
 
 void
 DeskJet3600::clean( )
 {
-    sendLidilCmd( resetType );
-    sendLidilCmd( cleanCmd );
+    char packet[minLdlPktLen];
+
+    buildLidilHeader( resetType, packet );
 }
 
 void
-DeskJet3600::sendLidilCmd( char command )
+DeskJet3600::buildLidilHeader( int type, char* buffer )
 {
-    char* cmd = new char[minLdlCmdLen];
-
     // Frame the packet
-    cmd[0] = cmd[minLdlCmdLen - 1] = '$';
+    buffer[0] = '$';
 
     // Next two bytes are the size
-    cmd[1] = '\0';
-    cmd[2] = minLdlCmdLen;
+    buffer[1] = '\0';
+    buffer[2] = minLdlPktLen;
 
     // Byte four is zero?
-    cmd[3] = '\0';
+    buffer[3] = '\0';
 
-    // Fifth byte is the command
-    cmd[4] = command;
+    // Fifth byte is the packet type
+    buffer[4] = type;
 
     // Bytes seven through ten are still a mystery to me.
     for ( size_t i = 5 ; i < 10 ; i++ )
-        cmd[i] = '\0';
-
-    // Pad the command to the end.
-    for ( size_t i = 10 ; i < minLdlCmdLen - 1 ; i++ )
-        cmd[i] = padByte;
-
-    std::cout.write( cmd, minLdlCmdLen );
-    std::cout.flush( );
-
-    delete [] cmd;
+        buffer[i] = '\0';
 }
 
 // vim: et sw=4

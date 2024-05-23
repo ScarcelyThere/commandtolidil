@@ -47,7 +47,7 @@ class DeskJet3600
 
         static const char   padByte       = 0xFF;
 
-        static const size_t minLdlCmdLen  = 16;
+        static const size_t minLdlPktLen  = 16;
 
         int parseStatus( );
         void clearPens( );
@@ -61,8 +61,8 @@ class DeskJet3600
         unsigned int numPens;
         unsigned int curPen;
 
-        void  sendLidilCmd( char );
-        char* buildLidilCmd( char );
+        void sendLidilCmd( char );
+        void buildLidilHeader( int, char* );
 };
 
 #endif
