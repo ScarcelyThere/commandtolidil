@@ -203,7 +203,7 @@ DeskJet3600::printAlignmentPage( )
     resetLidil( );
 
     buildLidilHeader( minLdlPktLen, commandType, printBuiltinCmd, packet );
-    packet[10] = printInternalPgOp & 0xFF;
+    packet[10] = printInternalPgOp;
     finishLidilPacket( minLdlPktLen, 11, packet );
 
     std::cout.write( packet, minLdlPktLen );
@@ -218,7 +218,7 @@ DeskJet3600::clean( )
     resetLidil( );
 
     buildLidilHeader( minLdlPktLen, commandType, handlePenCmd, packet );
-    packet[10] = cleanLvl1Op & 0xFF;
+    packet[10] = cleanLvl1Op;
     finishLidilPacket( minLdlPktLen, 11, packet );
 
     std::cout.write( packet, minLdlPktLen );
@@ -227,8 +227,8 @@ DeskJet3600::clean( )
 
 void
 DeskJet3600::buildLidilHeader( size_t packetSize,
-                               int    type,
-                               int    command,
+                               char   type,
+                               char   command,
                                char*  buffer )
 {
     // Frame the packet
@@ -242,10 +242,10 @@ DeskJet3600::buildLidilHeader( size_t packetSize,
     buffer[3] = '\0';
 
     // Fifth byte is the packet type
-    buffer[4] = type & 0xFF;
+    buffer[4] = type;
 
-    // Sixth byte is the command (or zero for none)
-    buffer[5] = command & 0xFF;
+    // Sixth byte is the command (or '\0' for none)
+    buffer[5] = command;
 
     // Bytes seven-eight and nine-ten are still a mystery to me.
     for ( size_t i = 6 ; i < 10 ; i++ )
@@ -268,7 +268,7 @@ DeskJet3600::resetLidil( )
 {
     char buffer[minLdlPktLen];
 
-    buildLidilHeader( minLdlPktLen, resetType, 0, buffer );
+    buildLidilHeader( minLdlPktLen, resetType, '\0', buffer );
     finishLidilPacket( minLdlPktLen, headerLen, buffer );
 
     std::cout.write( buffer, minLdlPktLen );
@@ -280,7 +280,7 @@ DeskJet3600::resumeLidil( )
 {
     char buffer[minLdlPktLen];
 
-    buildLidilHeader( minLdlPktLen, resumeType, 0, buffer );
+    buildLidilHeader( minLdlPktLen, resumeType, '\0', buffer );
     finishLidilPacket( minLdlPktLen, headerLen, buffer );
 
     std::cout.write( buffer, minLdlPktLen );

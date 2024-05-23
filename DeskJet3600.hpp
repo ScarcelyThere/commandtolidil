@@ -39,15 +39,15 @@ class DeskJet3600
         Pen* nextPen ( );
 
     private:
-        static const int    commandType = 0;
-        static const int    resumeType  = 3;
-        static const int    resetType   = 6;
+        static const char   commandType = 0;
+        static const char   resumeType  = 3;
+        static const char   resetType   = 6;
 
-        static const int    handlePenCmd = 8;
-        static const int    cleanLvl1Op  = 2;
+        static const char   handlePenCmd = 8;
+        static const char   cleanLvl1Op  = 2;
 
-        static const int    printBuiltinCmd   = 12;
-        static const int    printInternalPgOp = 17;
+        static const char   printBuiltinCmd   = 12;
+        static const char   printInternalPgOp = 17;
 
         static const int    headerLen = 10;
         static const char   padByte   = 0xFF;
@@ -67,8 +67,8 @@ class DeskJet3600
         unsigned int curPen;
 
         void buildLidilHeader( size_t,  // Packet size
-                               int,     // Packet type
-                               int,     // Packet command
+                               char,    // Packet type
+                               char,    // Packet command
                                char* ); // Buffer
 
         void finishLidilPacket( size_t,  // Packet size
