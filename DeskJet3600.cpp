@@ -200,12 +200,14 @@ DeskJet3600::printAlignmentPage( )
 {
     char packet[minLdlPktLen];
 
-    buildLidilHeader( commandType, printBuiltinCmd, minLdlPktLen, packet );
-    packet[10] = printInternalPgOp;
+    resetLidil( );
+
+    buildLidilHeader( minLdlPktLen, commandType, printBuiltinCmd, packet );
+    packet[10] = printInternalPgOp & 0xFF;
     finishLidilPacket( minLdlPktLen, 11, packet );
 
-    std::cerr.write( packet, minLdlPktLen );
-    std::cerr.flush( );
+    std::cout.write( packet, minLdlPktLen );
+    std::cout.flush( );
 }
 
 void
@@ -213,14 +215,19 @@ DeskJet3600::clean( )
 {
     char packet[minLdlPktLen];
 
-    buildLidilHeader( commandType, handlePenCmd, minLdlPktLen, packet );
-    packet[10] = cleanLvl1Op;
+    resetLidil( );
+
+    buildLidilHeader( minLdlPktLen, commandType, handlePenCmd, packet );
+    packet[10] = cleanLvl1Op & 0xFF;
     finishLidilPacket( minLdlPktLen, 11, packet );
 
-    std::cerr.write( packet, minLdlPktLen );
-    std::cerr.flush( );
+    std::cout.write( packet, minLdlPktLen );
+    std::cout.flush( );
 }
 
+// header    COMMAND_HANDLE_PEN
+// >BH BBBH H  BBBBBB
+//  $sz0tc0000 oPPPP$
 void
 DeskJet3600::buildLidilHeader( size_t packetSize,
                                int    type,
@@ -253,10 +260,22 @@ DeskJet3600::finishLidilPacket( size_t packetLength,
                                 int    offset,
                                 char*  buffer )
 {
-    for ( unsigned int i = offset ; i < packetLength - 2 ; i++ )
+    for ( unsigned int i = offset ; i < packetLength - 1 ; i++ )
         buffer[i] = padByte;
 
     buffer[packetLength - 1] = '$';
+}
+
+void
+DeskJet3600::resetLidil( )
+{
+    char buffer[minLdlPktLen];
+
+    buildLidilHeader( minLdlPktLen, resetType, 0, buffer );
+    finishLidilPacket( minLdlPktLen, headerLen, buffer );
+
+    std::cout.write( buffer, minLdlPktLen );
+    std::cout.flush( );
 }
 
 // vim: et sw=4

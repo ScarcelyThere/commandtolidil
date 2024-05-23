@@ -73,6 +73,8 @@ class DeskJet3600
         void finishLidilPacket( size_t,  // Packet size
                                 int,     // Offset to begin padding
                                 char* ); // Buffer
+
+        void resetLidil( );
 };
 
 #endif
