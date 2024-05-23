@@ -225,9 +225,6 @@ DeskJet3600::clean( )
     std::cout.flush( );
 }
 
-// header    COMMAND_HANDLE_PEN
-// >BH BBBH H  BBBBBB
-//  $sz0tc0000 oPPPP$
 void
 DeskJet3600::buildLidilHeader( size_t packetSize,
                                int    type,
@@ -272,6 +269,18 @@ DeskJet3600::resetLidil( )
     char buffer[minLdlPktLen];
 
     buildLidilHeader( minLdlPktLen, resetType, 0, buffer );
+    finishLidilPacket( minLdlPktLen, headerLen, buffer );
+
+    std::cout.write( buffer, minLdlPktLen );
+    std::cout.flush( );
+}
+
+void
+DeskJet3600::resumeLidil( )
+{
+    char buffer[minLdlPktLen];
+
+    buildLidilHeader( minLdlPktLen, resumeType, 0, buffer );
     finishLidilPacket( minLdlPktLen, headerLen, buffer );
 
     std::cout.write( buffer, minLdlPktLen );

@@ -40,6 +40,7 @@ class DeskJet3600
 
     private:
         static const int    commandType = 0;
+        static const int    resumeType  = 3;
         static const int    resetType   = 6;
 
         static const int    handlePenCmd = 8;
@@ -75,6 +76,7 @@ class DeskJet3600
                                 char* ); // Buffer
 
         void resetLidil( );
+        void resumeLidil( );
 };
 
 #endif
