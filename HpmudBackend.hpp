@@ -31,6 +31,8 @@ class HpmudBackend : public Backend
         bool getDeviceID( std::string& );
 
     private:
+        std::string messageFromHpmudResult( HPMUD_RESULT );
+
         static const int uriLength = 1024;
         char uri[uriLength];
 

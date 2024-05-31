@@ -21,6 +21,7 @@
 
 HpmudBackend::HpmudBackend( std::string& deviceUri )
 {
+    HPMUD_RESULT result;
     deviceOpen = false;
 
     // I do not know if hpmud_query_model alters the URI, so we'll keep
@@ -35,7 +36,54 @@ HpmudBackend::HpmudBackend( std::string& deviceUri )
         uri[i] = deviceUri[i];
     uri[i] = '\0';
 
-    validUri = ( HPMUD_R_OK == hpmud_query_model( uri, &modelAttrs ) );
+    result = hpmud_query_model( uri, &modelAttrs );
+    if ( result == HPMUD_R_OK )
+        validUri = true;
+    else
+    {
+        validUri = false;
+        std::cerr << messageFromHpmudResult( result ) << std::endl;
+    }
+}
+
+// TODO: Internationalize any of this at all.
+std::string
+HpmudBackend::messageFromHpmudResult( HPMUD_RESULT result )
+{
+    switch ( result )
+    {
+        case HPMUD_R_OK:
+            return "INFO: No errors from HP's HPMUD backend";
+            break;
+
+        case HPMUD_R_IO_ERROR:
+            return "ERROR: Could not communicate with the printer";
+            break;
+
+        case HPMUD_R_INVALID_DEVICE:
+            return "ERROR: Not a valid printer";
+            break;
+
+        case HPMUD_R_INVALID_URI:
+            return "ERROR: Not a valid URI for a printer";
+            break;
+
+        case HPMUD_R_INVALID_DESCRIPTOR:
+            return "ERROR: Not a valid descriptor for a printer";
+            break;
+
+        case HPMUD_R_INVALID_LENGTH:
+            return "ERROR: HP's backend reported an invalid length";
+            break;
+
+        case HPMUD_R_INVALID_DEVICE_OPEN:
+            return "ERROR: Invalid device open";
+            break;
+
+        default:
+            return "ERROR: HP's HPMUD backend reported an error";
+            break;
+    }
 }
 
 HpmudBackend::~HpmudBackend( )
@@ -62,7 +110,10 @@ HpmudBackend::getDeviceID( std::string& deviceID )
     result = hpmud_open_device( uri, modelAttrs.prt_mode, &device );
 
     if ( result != HPMUD_R_OK )
+    {
+        std::cerr << messageFromHpmudResult( result ) << std::endl;
         return false;
+    }
 
     result = hpmud_get_device_id( device, buf, bufSize,
             &bytesRead );
