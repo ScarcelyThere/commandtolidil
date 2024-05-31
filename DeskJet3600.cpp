@@ -51,7 +51,7 @@ DeskJet3600::DeskJet3600( std::string uri )
     else if ( deviceUri.length( ) > 1 &&
               deviceUri.compare( 0, 2, "hp" ) == 0 )
     {
-        backend = new HpmudBackend( uri.data( ) );
+        backend = new HpmudBackend( uri );
         std::cerr << "DEBUG: Selected HP backend" << std::endl;
     }
 #endif

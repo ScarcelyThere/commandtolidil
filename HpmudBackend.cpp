@@ -19,19 +19,23 @@
 #include "hpmud.h"
 #include "HpmudBackend.hpp"
 
-HpmudBackend::HpmudBackend( const char* deviceUri )
+HpmudBackend::HpmudBackend( std::string& deviceUri )
 {
     deviceOpen = false;
 
-    HPMUD_RESULT result;
-
-    // I do not know if hpmud_query_model alters the URI, so we keep
+    // I do not know if hpmud_query_model alters the URI, so we'll keep
     //  our own copy of the URI.
-    for ( int i = 0 ; i < uriLength && deviceUri[i] != '\0' ; i++ )
-        uri[i] = deviceUri[i];
+    int smallerStringLength = deviceUri.length( );
+    // We account for the NULL-termination space our copy will need.
+    if ( uriLength - 1 < smallerStringLength )
+        smallerStringLength = uriLength - 1;
 
-    result = hpmud_query_model( uri, &modelAttrs );
-    validUri = ( result == HPMUD_R_OK );
+    int i;
+    for ( i = 0 ; i < smallerStringLength ; i++ )
+        uri[i] = deviceUri[i];
+    uri[i] = '\0';
+
+    validUri = ( HPMUD_R_OK == hpmud_query_model( uri, &modelAttrs ) );
 }
 
 HpmudBackend::~HpmudBackend( )
@@ -55,8 +59,7 @@ HpmudBackend::getDeviceID( std::string& deviceID )
         return false;
 
     HPMUD_RESULT result;
-    result = hpmud_open_device( uri, modelAttrs.prt_mode,
-            &device );
+    result = hpmud_open_device( uri, modelAttrs.prt_mode, &device );
 
     if ( result != HPMUD_R_OK )
         return false;

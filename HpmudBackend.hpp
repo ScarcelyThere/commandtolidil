@@ -24,7 +24,7 @@ class HpmudBackend : public Backend
 {
     public:
         HpmudBackend( );
-        HpmudBackend( const char* );
+        HpmudBackend( std::string& );
 
         ~HpmudBackend( );
 
