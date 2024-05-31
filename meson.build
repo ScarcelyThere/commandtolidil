@@ -10,7 +10,8 @@
 # You should have received a copy of the GNU General Public License along with
 # commandtolidil. If not, see <https://www.gnu.org/licenses/>.
 
-project( 'commandtolidil', 'cpp', version: '1.0.0' )
+project( 'commandtolidil', 'cpp', version: '1.0.0',
+         default_options: 'cpp_std=c++98' )
 
 # This is specifically built by my custom Meson build in HP's regular hplip source
 #  tree. Should you be using, say, your distribution's version, there's a build

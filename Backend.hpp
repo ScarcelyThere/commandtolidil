@@ -31,7 +31,7 @@ class Backend
 class BackendException
 {
     public:
-        BackendException( std::string&& );
+        BackendException( std::string );
         std::string what( );
 
     private:

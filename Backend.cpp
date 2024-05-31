@@ -23,9 +23,9 @@ Backend::~Backend( )
 {
 }
 
-BackendException::BackendException( std::string&& errMsg )
+BackendException::BackendException( std::string msg )
 {
-    errorMsg = errMsg;
+    errorMsg = msg;
 }
 
 std::string
