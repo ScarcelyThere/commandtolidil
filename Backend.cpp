@@ -23,4 +23,15 @@ Backend::~Backend( )
 {
 }
 
+BackendException::BackendException( std::string&& errMsg )
+{
+    errorMsg = errMsg;
+}
+
+std::string
+BackendException::what( )
+{
+    return errorMsg;
+}
+
 // vim: et sw=4

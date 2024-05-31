@@ -24,6 +24,8 @@
 int
 main( int argc, char* argv[] )
 {
+    int retVal = 0;
+
     signal( SIGPIPE, SIG_IGN );
 
     if ( argc > 7 || argc < 6 )
@@ -58,36 +60,43 @@ main( int argc, char* argv[] )
             readingFromCmdFile = true;
     }
 
-    DeskJet3600 printer ( deviceUri );
-
-    std::string jobLine;
-    int retVal = 0;
-    while ( *jobFile >> jobLine )
+    try
     {
-        std::cerr << "DEBUG: jobLine is " << jobLine << std::endl;
+        DeskJet3600 printer ( deviceUri );
 
-        // "Clean all" instead of "Clean" as specified threw me off a little
-        if ( jobLine == "Clean" )
-            printer.clean( );
-        else if ( jobLine == "PrintSelfTestPage" )
-            printer.printAlignmentPage( );
-        // We should also support this command.
-        else if ( jobLine == "PrintAlignmentPage" )
-            printer.printAlignmentPage( );
-        else if ( jobLine == "ReportLevels" )
+        std::string jobLine;
+        while ( *jobFile >> jobLine )
         {
-            if ( printer.update( ) )
-                sendCupsLevels( printer );
-            else
+            std::cerr << "DEBUG: jobLine is " << jobLine << std::endl;
+
+            // "Clean all" instead of "Clean" as specified threw me off a little
+            if ( jobLine == "Clean" )
+                printer.clean( );
+            else if ( jobLine == "PrintSelfTestPage" )
+                printer.printAlignmentPage( );
+            // We should also support this command.
+            else if ( jobLine == "PrintAlignmentPage" )
+                printer.printAlignmentPage( );
+            else if ( jobLine == "ReportLevels" )
             {
+                if ( printer.update( ) )
+                    sendCupsLevels( printer );
+                else
+                {
                 // This is probably bad enough that we just stop.
-                std::cerr << "ERROR: Could not read supply levels from the printer"
-                          << std::endl;
-                retVal = 1;
-                break;
+                
+                    std::cerr << "ERROR: Could not read supply levels from the printer"
+                              << std::endl;
+                    retVal = 1;
+                    break;
+                }
             }
+            // Any other line is a comment or unsupported. Ignore it.
         }
-        // Any other line is unsupported or a comment. Ignore it.
+    }
+    catch ( BackendException& e )
+    {
+        std::cerr << "ERROR: " << e.what( ) << std::endl;
     }
 
     if ( readingFromCmdFile )

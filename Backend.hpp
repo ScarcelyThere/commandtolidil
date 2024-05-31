@@ -28,6 +28,16 @@ class Backend
         virtual bool getDeviceID( std::string& ) = 0;
 };
 
+class BackendException
+{
+    public:
+        BackendException( std::string&& );
+        std::string what( );
+
+    private:
+        std::string errorMsg;
+};
+
 #endif
 
 // vim: et sw=4
