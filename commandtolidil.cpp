@@ -81,7 +81,8 @@ main( int argc, char* argv[] )
             else
             {
                 // This is probably bad enough that we just stop.
-                std::cerr << "ERROR: Could not get supply levels" << std::endl;
+                std::cerr << "ERROR: Could not read supply levels from the printer"
+                          << std::endl;
                 retVal = 1;
                 break;
             }
