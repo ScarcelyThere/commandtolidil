@@ -82,8 +82,7 @@ main( int argc, char* argv[] )
                     sendCupsLevels( printer );
                 else
                 {
-                // This is probably bad enough that we just stop.
-                
+                    // This is probably bad enough that we just stop.
                     std::cerr << "ERROR: Could not read supply levels from the printer"
                               << std::endl;
                     retVal = 1;
