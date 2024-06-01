@@ -17,12 +17,21 @@
 #define USBBACKEND_H
 
 #include <string>
+#include <cups/sidechannel.h>
 #include "Backend.hpp"
 
 class USBBackend : public Backend
 {
     public:
+        USBBackend( );
         bool getDeviceID( std::string& );
+
+    private:
+        static const int bufSize = 1024;
+        char buf[bufSize];
+        std::string myDeviceID;
+
+        std::string errorMsgFromStatus( cups_sc_status_t );
 };
 
 #endif
