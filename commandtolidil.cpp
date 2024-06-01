@@ -58,7 +58,8 @@ main( int argc, char* argv[] )
             readingFromCmdFile = true;
     }
 
-    int retVal = 0;
+    // Other command filters return 0 no matter what happens here, so we do the
+    //  same. We will still report errors, though.
     try
     {
         DeskJet3600 printer ( deviceUri );
@@ -85,7 +86,7 @@ main( int argc, char* argv[] )
                     // This is probably bad enough that we just stop.
                     std::cerr << "ERROR: Could not read supply levels from the printer"
                               << std::endl;
-                    retVal = 1;
+                    return 0;
                     break;
                 }
             }
@@ -95,13 +96,12 @@ main( int argc, char* argv[] )
     catch ( BackendException& e )
     {
         std::cerr << "ERROR: " << e.what( ) << std::endl;
-        retVal = 1;
     }
 
     if ( readingFromCmdFile )
         delete jobFile;
 
-    return retVal;
+    return 0;
 }
 
 // vim: et sw=4
