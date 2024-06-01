@@ -13,6 +13,7 @@
  * commandtolidil. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
 #include "Backend.hpp"
 
 Backend::Backend( )
@@ -21,6 +22,15 @@ Backend::Backend( )
 
 Backend::~Backend( )
 {
+}
+
+bool
+Backend::send( const char* buffer, size_t length )
+{
+    std::cout.write( buffer, length );
+    std::cout.flush( );
+
+    return true;
 }
 
 BackendException::BackendException( std::string msg )

@@ -14,6 +14,7 @@
  * commandtolidil. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
 #include <cups/cups.h>
 #include <cups/sidechannel.h>
 #include "USBBackend.hpp"
@@ -67,6 +68,18 @@ USBBackend::errorMsgFromStatus( cups_sc_status_t status )
             return "There was an error we didn't bother describing";
             break;
     }
+}
+
+bool
+USBBackend::receive( const char* buffer, size_t length )
+{
+    return true;
+}
+
+bool
+USBBackend::receive( const char* buffer, size_t length, int timeout )
+{
+    return true;
 }
 
 bool

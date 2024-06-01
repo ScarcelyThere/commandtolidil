@@ -188,7 +188,7 @@ DeskJet3600::parseStatus( )
         }
         catch ( const InvalidPenException &e )
         {
-            std::cout << "DEBUG: Invalid Pen discovered" << std::endl;
+            std::cerr << "DEBUG: Invalid Pen discovered" << std::endl;
         }
     }
 
@@ -206,8 +206,7 @@ DeskJet3600::printAlignmentPage( )
     packet[10] = printInternalPgOp;
     finishLidilPacket( minLdlPktLen, 11, packet );
 
-    std::cout.write( packet, minLdlPktLen );
-    std::cout.flush( );
+    backend->send( packet, minLdlPktLen );
 }
 
 void
@@ -221,8 +220,7 @@ DeskJet3600::clean( )
     packet[10] = cleanLvl1Op;
     finishLidilPacket( minLdlPktLen, 11, packet );
 
-    std::cout.write( packet, minLdlPktLen );
-    std::cout.flush( );
+    backend->send( packet, minLdlPktLen );
 }
 
 void
@@ -271,8 +269,7 @@ DeskJet3600::resetLidil( )
     buildLidilHeader( minLdlPktLen, resetType, '\0', buffer );
     finishLidilPacket( minLdlPktLen, headerLen, buffer );
 
-    std::cout.write( buffer, minLdlPktLen );
-    std::cout.flush( );
+    backend->send( buffer, minLdlPktLen );
 }
 
 void
@@ -283,8 +280,7 @@ DeskJet3600::resumeLidil( )
     buildLidilHeader( minLdlPktLen, resumeType, '\0', buffer );
     finishLidilPacket( minLdlPktLen, headerLen, buffer );
 
-    std::cout.write( buffer, minLdlPktLen );
-    std::cout.flush( );
+    backend->send( buffer, minLdlPktLen );
 }
 
 // vim: et sw=4

@@ -26,6 +26,9 @@ class USBBackend : public Backend
         USBBackend( );
         bool getDeviceID( std::string& );
 
+        bool receive( const char*, size_t );
+        bool receive( const char*, size_t, int );
+
     private:
         static const int bufSize = 1024;
         char buf[bufSize];

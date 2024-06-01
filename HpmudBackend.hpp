@@ -30,6 +30,9 @@ class HpmudBackend : public Backend
 
         bool getDeviceID( std::string& );
 
+        bool receive( const char*, size_t );
+        bool receive( const char*, size_t, int );
+
     private:
         std::string messageFromHpmudResult( HPMUD_RESULT );
 

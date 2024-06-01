@@ -24,8 +24,21 @@ class Backend
         Backend( );
         virtual ~Backend( );
 
-        // This is all we really need from outside.
+        // Returs true when successful, false when not.
+        // The device ID will be in the provided
+        //  std::string reference.
         virtual bool getDeviceID( std::string& ) = 0;
+
+        // Sends size_t characters from the const char* buffer.
+        //  Returns true when successful, false when not.
+        virtual bool send( const char*, size_t );
+        // Receives size_t characters to the const char* buffer.
+        //  Returns true when anything can be read.
+        virtual bool receive( const char*, size_t ) = 0;
+        // Receives size_t characters to the const char* buffer.
+        //  The final int is a timeout. This will block.
+        // Returns true when anything can be read.
+        virtual bool receive( const char*, size_t, int ) = 0;
 };
 
 class BackendException

@@ -135,4 +135,16 @@ HpmudBackend::getDeviceID( std::string& deviceID )
     return true;
 }
 
+bool
+HpmudBackend::receive( const char* buffer, size_t length )
+{
+    return true;
+}
+
+bool
+HpmudBackend::receive( const char* buffer, size_t length, int timeout )
+{
+    return true;
+}
+
 // vim: et sw=4

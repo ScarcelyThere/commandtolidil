@@ -26,6 +26,9 @@ class TestBackend : public Backend
 
         bool getDeviceID( std::string& );
 
+        bool receive( const char*, size_t );
+        bool receive( const char*, size_t, int );
+
     private:
         std::string testCases[3];
         std::string testDescriptions[3];
