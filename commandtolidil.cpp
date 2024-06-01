@@ -60,6 +60,8 @@ main( int argc, char* argv[] )
 
     // Other command filters return 0 no matter what happens here, so we do the
     //  same. We will still report errors, though.
+    // Let's try it the other way, though.
+    int retVal = 0;
     try
     {
         DeskJet3600 printer ( deviceUri );
@@ -84,7 +86,7 @@ main( int argc, char* argv[] )
                 else
                 {
                     // This is probably bad enough that we just stop.
-                    return 0;
+                    retVal = 1;
                     break;
                 }
             }
@@ -94,12 +96,13 @@ main( int argc, char* argv[] )
     catch ( BackendException& e )
     {
         std::cerr << "ERROR: " << e.what( ) << std::endl;
+        retVal = 1;
     }
 
     if ( readingFromCmdFile )
         delete jobFile;
 
-    return 0;
+    return retVal;
 }
 
 // vim: et sw=4
