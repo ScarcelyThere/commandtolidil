@@ -14,7 +14,6 @@
  * commandtolidil. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
 #include <cups/cups.h>
 #include <cups/sidechannel.h>
 #include "USBBackend.hpp"

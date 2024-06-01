@@ -116,7 +116,8 @@ HpmudBackend::getDeviceID( std::string& deviceID )
 
     if ( result != HPMUD_R_OK )
     {
-        std::cerr << messageFromHpmudResult( result ) << std::endl;
+        std::cerr << "ERROR: " << messageFromHpmudResult( result )
+                  << std::endl;
         return false;
     }
 
