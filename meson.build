@@ -14,8 +14,7 @@ project( 'commandtolidil', 'cpp', version: '2.0.0',
          default_options: 'cpp_std=c++98' )
 
 # This is specifically built by my custom Meson build in HP's regular hplip source
-#  tree. Should you be using, say, your distribution's version, there's a build
-#  option for that later.
+#  tree.
 hpmud = dependency( 'hpmud', required: false )
 cups  = dependency( 'cups' )
 
