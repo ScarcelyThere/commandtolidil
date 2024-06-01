@@ -24,8 +24,6 @@
 int
 main( int argc, char* argv[] )
 {
-    int retVal = 0;
-
     signal( SIGPIPE, SIG_IGN );
 
     if ( argc > 7 || argc < 6 )
@@ -60,6 +58,7 @@ main( int argc, char* argv[] )
             readingFromCmdFile = true;
     }
 
+    int retVal = 0;
     try
     {
         DeskJet3600 printer ( deviceUri );
@@ -97,6 +96,7 @@ main( int argc, char* argv[] )
     catch ( BackendException& e )
     {
         std::cerr << "ERROR: " << e.what( ) << std::endl;
+        retVal = 1;
     }
 
     if ( readingFromCmdFile )

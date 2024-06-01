@@ -81,6 +81,10 @@ HpmudBackend::messageFromHpmudResult( HPMUD_RESULT result )
             return "Invalid device open";
             break;
 
+        case HPMUD_R_DATFILE_ERROR:
+            return "HP's models database doesn't have this printer";
+            break;
+
         default:
             return "HP's HPMUD backend reported an error";
             break;
