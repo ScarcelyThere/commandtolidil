@@ -58,9 +58,6 @@ main( int argc, char* argv[] )
             readingFromCmdFile = true;
     }
 
-    // Other command filters return 0 no matter what happens here, so we do the
-    //  same. We will still report errors, though.
-    // Let's try it the other way, though.
     int retVal = 0;
     try
     {
