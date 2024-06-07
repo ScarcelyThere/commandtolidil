@@ -139,12 +139,19 @@ HpmudBackend::getDeviceID( std::string& deviceID )
 bool
 HpmudBackend::receive( const char* buffer, size_t length )
 {
+    ( void )buffer;
+    ( void )length;
+
     return true;
 }
 
 bool
 HpmudBackend::receive( const char* buffer, size_t length, int timeout )
 {
+    ( void )buffer;
+    ( void )length;
+    ( void )timeout;
+
     return true;
 }
 

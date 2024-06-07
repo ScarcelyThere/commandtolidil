@@ -72,12 +72,18 @@ USBBackend::errorMsgFromStatus( cups_sc_status_t status )
 bool
 USBBackend::receive( const char* buffer, size_t length )
 {
+    ( void )buffer;
+    ( void )length;
     return true;
 }
 
 bool
 USBBackend::receive( const char* buffer, size_t length, int timeout )
 {
+    ( void )buffer;
+    ( void )length;
+    ( void )timeout;
+
     return true;
 }
 

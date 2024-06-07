@@ -176,7 +176,7 @@ DeskJet3600::parseStatus( )
     Pen* pen;
     for ( unsigned int i = 0 ; i < penCount ; i++) 
     {
-        std::stringstream( deviceID.substr( offset, penDataLength ) )
+        std::stringstream ( deviceID.substr( offset, penDataLength ) )
             >> std::hex >> curRawPen;
 
         offset += penDataLength;
