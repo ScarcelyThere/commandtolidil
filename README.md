@@ -1,6 +1,10 @@
 commandtolidil
 ==============
 
+It's been months since I took this printer out, so I'm archiving this
+repository. It achieved a level of functionality I'd describe as
+"adequate," and I'm mildly proud of that.
+
 What Is It?
 -----------
 Do you compile HPLIP with `--enable-hpcups-only` and miss knowing how
